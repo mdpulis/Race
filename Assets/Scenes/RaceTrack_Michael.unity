@@ -3707,17 +3707,17 @@ PrefabInstance:
     - target: {fileID: 6411872909363255718, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6411872909363255718, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6411872909363255718, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6411872909363255718, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
         type: 3}
@@ -3727,7 +3727,7 @@ PrefabInstance:
     - target: {fileID: 6411872909363255718, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 6411872909363255718, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
         type: 3}
@@ -3737,6 +3737,21 @@ PrefabInstance:
     - target: {fileID: 6411872909363255718, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6411872909363255737, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
+        type: 3}
+      propertyPath: BoardSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6411872909363255737, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
+        type: 3}
+      propertyPath: BoostMod
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 929629020351547083, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

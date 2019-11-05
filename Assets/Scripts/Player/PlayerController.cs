@@ -10,6 +10,7 @@ namespace EAE.Race.Player
     public class PlayerController : MonoBehaviour
     {
         public Transform Models;
+        public Transform FlipRotationPoint;
 
         //public modifiable variables
         public float BoardSpeed = 3.0f;
@@ -31,6 +32,9 @@ namespace EAE.Race.Player
         private float currentFlipTime = 0.0f;
         private const float MAX_FLIP_TIME = 1.0f;
 
+        private float startRotation = 0.0f;
+        private float endRotation = 0.0f;
+
 
         #region Setup
         private void Awake()
@@ -45,9 +49,9 @@ namespace EAE.Race.Player
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (!flipping && Input.GetKeyDown(KeyCode.W))
             {
-                flipping = true;
+                StartFlip();
             }
         }
 
@@ -76,7 +80,7 @@ namespace EAE.Race.Player
             //CollisionFlags.Sides
             if(boosting)
             {
-                currentBoostTime += Time.deltaTime;
+                currentBoostTime += Time.fixedDeltaTime;
                 if(currentBoostTime > MAX_BOOST_TIME)
                 {
                     EndBoost();
@@ -85,7 +89,18 @@ namespace EAE.Race.Player
 
             if(flipping)
             {
-                Models.Rotate(Vector3.right * RotateSpeed * Time.deltaTime);
+                currentFlipTime += Time.fixedDeltaTime;
+
+                float rotVal = (Time.fixedDeltaTime / MAX_FLIP_TIME) * 360.0f;
+                Models.RotateAround(FlipRotationPoint.position, Models.right, rotVal);
+
+
+                if (currentFlipTime > MAX_FLIP_TIME)
+                {
+                    EndFlip();
+                    Models.localRotation = Quaternion.Euler(0, 0, 0);
+                    Models.localPosition = new Vector3(0, 0, 0);
+                }
             }
 
         }
@@ -97,6 +112,7 @@ namespace EAE.Race.Player
         /// </summary>
         public void StartBoost()
         {
+            currentBoostTime = 0.0f;
             boosting = true;
         }
 
@@ -116,7 +132,11 @@ namespace EAE.Race.Player
         /// </summary>
         public void StartFlip()
         {
+            currentFlipTime = 0.0f;
             flipping = true;
+
+            startRotation = Models.localEulerAngles.x;
+            endRotation = startRotation + 360.0f;
         }
 
         /// <summary>
