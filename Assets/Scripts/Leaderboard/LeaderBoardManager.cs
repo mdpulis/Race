@@ -128,7 +128,7 @@ class score
     {
         int minutes =Mathf.FloorToInt(seconds / 60);
         seconds %= 60;
-        return minutes.ToString("00") + "m:" + seconds.ToString("00")+"s";
+        return minutes.ToString("00") + ":" + seconds.ToString("00");
     }
 
     public string GetDisplayFormatString()
