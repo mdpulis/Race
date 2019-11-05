@@ -179,7 +179,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6061063190499973760}
   - component: {fileID: 6061063190499973762}
-  - component: {fileID: 6061063190499973763}
   m_Layer: 0
   m_Name: FaceCamera
   m_TagString: Untagged
@@ -245,14 +244,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6061063190499973763
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6061063190499973761}
-  m_Enabled: 1
 --- !u!1 &6061063190800958494
 GameObject:
   m_ObjectHideFlags: 0
