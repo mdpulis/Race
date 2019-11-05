@@ -56,6 +56,7 @@ namespace EAE.Race.Player
             else
                 transform.Translate(Vector3.forward * BoardSpeed * BoostMod * Time.deltaTime);
 
+            //CollisionFlags.Sides
         }
 
 

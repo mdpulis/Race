@@ -9,16 +9,24 @@ namespace EAE.Race.Player
     /// </summary>
     public class PlayerData : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private int money = 0;
 
+
+        /// <summary>
+        /// Adds money to the player
+        /// </summary>
+        public void AddMoney(int addedMoney)
+        {
+            money += addedMoney;
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Gets the amount of money the player has
+        /// </summary>
+        public int GetMoney()
         {
-
+            return money;
         }
+
     }
 }
