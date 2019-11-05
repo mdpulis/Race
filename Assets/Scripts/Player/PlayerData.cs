@@ -10,6 +10,24 @@ namespace EAE.Race.Player
     public class PlayerData : MonoBehaviour
     {
         private int money = 0;
+        private float timePlayed = 0.0f;
+
+        private PlayerUI playerUI;
+
+        private void Awake()
+        {
+            playerUI = GameObject.FindObjectOfType<PlayerUI>();
+        }
+
+        private void Update()
+        {
+            timePlayed += Time.deltaTime;
+
+            if(playerUI != null)
+            {
+                playerUI.SetTimeText(timePlayed);
+            }
+        }
 
 
         /// <summary>
@@ -18,6 +36,7 @@ namespace EAE.Race.Player
         public void AddMoney(int addedMoney)
         {
             money += addedMoney;
+            playerUI.SetMoneyText(money);
         }
 
         /// <summary>
@@ -26,6 +45,14 @@ namespace EAE.Race.Player
         public int GetMoney()
         {
             return money;
+        }
+
+        /// <summary>
+        /// Gets the time played
+        /// </summary>
+        public float GetTimePlayed()
+        {
+            return timePlayed;
         }
 
     }

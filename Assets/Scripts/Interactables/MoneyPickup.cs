@@ -18,6 +18,8 @@ namespace EAE.Race.Interactables
         {
             if(other.GetComponent<PlayerData>() != null)
             {
+                Debug.Log("hit!");
+
                 canPickup = false;
 
                 other.GetComponent<PlayerData>().AddMoney(MoneyValue);
@@ -31,7 +33,7 @@ namespace EAE.Race.Interactables
         private IEnumerator WaitToDestroy()
         {
             yield return new WaitForSeconds(1.0f);
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
     }
