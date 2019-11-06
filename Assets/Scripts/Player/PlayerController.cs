@@ -17,6 +17,8 @@ namespace EAE.Race.Player
         public float RotateSpeed = 30.0f;
         public float BoostMod = 2.0f;
 
+        //Public Accesible components
+        public AnimationManager anim;
 
         //private gameplay variables
         private bool racing = false;
@@ -35,13 +37,14 @@ namespace EAE.Race.Player
         private float startRotation = 0.0f;
         private float endRotation = 0.0f;
 
+       
 
         #region Setup
         private void Awake()
         {
             racing = true;
-
             //this.GetComponent<Rigidbody>().centerOfMass = CenterOfMass.position;
+            anim = GetComponentInChildren<AnimationManager>();
         }
 
         #endregion Setup
