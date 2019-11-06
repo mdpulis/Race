@@ -15,10 +15,7 @@ namespace EAE.Race.Player
         //public modifiable variables
         public float BoardSpeed = 3.0f;
         public float RotateSpeed = 30.0f;
-        public float BoostMod = 2.0f;
-
-        //Public Accesible components
-        public AnimationManager anim;
+        public float BoostMod = 2.0f;      
 
         //private gameplay variables
         private bool racing = false;
@@ -37,7 +34,10 @@ namespace EAE.Race.Player
         private float startRotation = 0.0f;
         private float endRotation = 0.0f;
 
-       
+
+        //visual components
+        private AnimationManager anim;
+        private TimedEffect speedEffect;
 
         #region Setup
         private void Awake()
@@ -45,6 +45,7 @@ namespace EAE.Race.Player
             racing = true;
             //this.GetComponent<Rigidbody>().centerOfMass = CenterOfMass.position;
             anim = GetComponentInChildren<AnimationManager>();
+            speedEffect = Camera.main.GetComponentInChildren<TimedEffect>();
         }
 
         #endregion Setup
@@ -117,6 +118,10 @@ namespace EAE.Race.Player
         {
             currentBoostTime = 0.0f;
             boosting = true;
+
+            //Visual Effects
+            anim.TriggerState(AnimationManager.states.WIN);
+            speedEffect.triggerEffect();
         }
 
         /// <summary>

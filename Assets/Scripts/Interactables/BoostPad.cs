@@ -15,8 +15,7 @@ namespace EAE.Race.Interactables
             PlayerController pc = other.GetComponent<PlayerController>();
             if ( pc!= null)
             {
-                pc.StartBoost();
-                pc.anim.TriggerState(AnimationManager.states.WIN);
+                pc.StartBoost();               
             }         
         }
     }
