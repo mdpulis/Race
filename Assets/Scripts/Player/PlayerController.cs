@@ -38,6 +38,8 @@ namespace EAE.Race.Player
         //visual components
         private AnimationManager anim;
         private TimedEffect speedEffect;
+        private PlayerVoiceManager playerVoice;
+
 
         #region Setup
         private void Awake()
@@ -46,6 +48,7 @@ namespace EAE.Race.Player
             //this.GetComponent<Rigidbody>().centerOfMass = CenterOfMass.position;
             anim = GetComponentInChildren<AnimationManager>();
             speedEffect = Camera.main.GetComponentInChildren<TimedEffect>();
+            playerVoice = GetComponent<PlayerVoiceManager>();
         }
 
         #endregion Setup
@@ -120,8 +123,9 @@ namespace EAE.Race.Player
             boosting = true;
 
             //Visual Effects
-            anim.TriggerState(AnimationManager.states.WIN);
+            anim.TriggerState(AnimationManager.states.Win);
             speedEffect.triggerEffect();
+            playerVoice.TriggerVoiceEffect(PlayerVoiceManager.Emotion.Excited);
         }
 
         /// <summary>

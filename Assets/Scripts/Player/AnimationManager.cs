@@ -8,12 +8,12 @@ public class AnimationManager : MonoBehaviour
 {
     public enum states
     {
-        IDLE,
-        TWIST,
-        WIN,
-        LOSE,
-        JUMP,
-        SLIDE
+        Idle,
+        Twist,
+        Win,
+        Lose,
+        Jump,
+        Slide
     }
     private Animator anim;
     private Dictionary<states, string> triggerDict;
@@ -28,12 +28,12 @@ public class AnimationManager : MonoBehaviour
     {
         triggerDict = new Dictionary<states, string>();
 
-        triggerDict.Add(states.IDLE, "Idle");
-        triggerDict.Add(states.TWIST, "Twist");
-        triggerDict.Add(states.WIN, "Win");
-        triggerDict.Add(states.LOSE, "Lose");
-        triggerDict.Add(states.JUMP, "Jump0");
-        triggerDict.Add(states.SLIDE, "Slide");
+        triggerDict.Add(states.Idle, "Idle");
+        triggerDict.Add(states.Twist, "Twist");
+        triggerDict.Add(states.Win, "Win");
+        triggerDict.Add(states.Lose, "Lose");
+        triggerDict.Add(states.Jump, "Jump0");
+        triggerDict.Add(states.Slide, "Slide");
     }
 
     // Update is called once per frame
@@ -41,23 +41,23 @@ public class AnimationManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            TriggerState(states.TWIST);
+            TriggerState(states.Twist);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            TriggerState(states.WIN);
+            TriggerState(states.Win);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            TriggerState(states.LOSE);
+            TriggerState(states.Lose);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            TriggerState(states.JUMP);
+            TriggerState(states.Jump);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            TriggerState(states.SLIDE);
+            TriggerState(states.Slide);
         }
     }
     public void TriggerState(states newState)

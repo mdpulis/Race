@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public static class Util
-{    
-    public static T RandomItem<T>(this List<T> list)
+{
+    static Util()
     {
+        Random.InitState(System.DateTime.Now.Millisecond);
+    }
+    
+    public static T RandomItem<T>(this List<T> list)
+    {        
         if (list.Count == 0)
             return default(T);
         if (list.Count == 1)
