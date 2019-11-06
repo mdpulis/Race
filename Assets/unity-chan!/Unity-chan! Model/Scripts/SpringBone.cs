@@ -75,7 +75,7 @@ namespace UnityChan
 			prevTipPos = child.position;
 		}
 
-		public void UpdateSpring ()
+		public void UpdateSpring (float lerpStrength)
 		{
 			//Kobayashi
 			org = trs;
@@ -91,13 +91,15 @@ namespace UnityChan
 			force += (prevTipPos - currTipPos) * dragForce / sqrDt;
 
 			force += springForce / sqrDt;
+            
 
 			//前フレームと値が同じにならないように
 			Vector3 temp = currTipPos;
 
 			//verlet
-			currTipPos = (currTipPos - prevTipPos) + currTipPos + (force * sqrDt);
-
+            Vector3 VerletTarget = (currTipPos - prevTipPos) + currTipPos + (force * sqrDt);
+            currTipPos = Vector3.Lerp(currTipPos, VerletTarget, Time.deltaTime*lerpStrength);
+            
 			//長さを元に戻す
 			currTipPos = ((currTipPos - trs.position).normalized * springLength) + trs.position;
 

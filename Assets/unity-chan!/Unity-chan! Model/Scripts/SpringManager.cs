@@ -26,7 +26,7 @@ namespace UnityChan
 		public float			dragForce;
 		public AnimationCurve	dragCurve;
 		public SpringBone[] springBones;
-
+        public float lerpStrength;
 		void Start ()
 		{
 			UpdateParameters ();
@@ -51,7 +51,7 @@ namespace UnityChan
 			if (dynamicRatio != 0.0f) {
 				for (int i = 0; i < springBones.Length; i++) {
 					if (dynamicRatio > springBones [i].threshold) {
-						springBones [i].UpdateSpring ();
+						springBones [i].UpdateSpring (lerpStrength);
 					}
 				}
 			}
