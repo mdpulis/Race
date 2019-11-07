@@ -40,9 +40,9 @@ namespace EAE.Race.Player
         private bool isGrounded;
 
         //visual components
-        private AnimationManager anim;
+        public AnimationManager anim;
         private TimedEffect speedEffect;
-        private PlayerVoiceManager playerVoice;
+        public PlayerVoiceManager playerVoice;
        
 
         #region Setup

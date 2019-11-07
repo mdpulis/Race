@@ -44,7 +44,7 @@ namespace EAE.Race.InputMethods
             {
                 pc.setMovingLeft(false);
                 pc.setMovingRight(true);
-            }else if(rotationDeltaZ<deadzone)
+            }else if(rotationDeltaZ>deadzone)
             {
                 pc.setMovingLeft(true);
                 pc.setMovingRight(false);
