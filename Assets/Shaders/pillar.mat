@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_ScanLineShader
+  m_Name: pillar
   m_Shader: {fileID: -6465566751694194690, guid: 42310536ed0af0247b5447f335faab98,
     type: 3}
   m_ShaderKeywords: 
@@ -33,4 +33,4 @@ Material:
     - Color_B54435B4: {r: 3104.1882, g: 0, b: 0, a: 0.1882353}
     - Vector2_69529D14: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_A7455B99: {r: 0, g: 0, b: 0, a: 0}
-    - Vector2_FF244414: {r: 0, g: -5, b: 0, a: 0}
+    - Vector2_FF244414: {r: 0, g: 0.2, b: 0, a: 0}
