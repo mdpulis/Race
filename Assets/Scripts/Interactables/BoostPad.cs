@@ -12,10 +12,11 @@ namespace EAE.Race.Interactables
     {
         private void OnTriggerEnter(Collider other)
         {
-            if(other.GetComponent<PlayerController>() != null)
+            PlayerController pc = other.GetComponent<PlayerController>();
+            if ( pc!= null)
             {
-                other.GetComponent<PlayerController>().StartBoost();
-            }
+                pc.StartBoost();               
+            }         
         }
     }
 
