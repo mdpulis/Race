@@ -7,6 +7,7 @@ namespace EAE.Race.Player
     /// <summary>
     /// Controls the player
     /// </summary>
+    [RequireComponent(typeof(Collider))]
     public class PlayerController : MonoBehaviour
     {
         public Transform Models;
@@ -34,12 +35,14 @@ namespace EAE.Race.Player
         private float startRotation = 0.0f;
         private float endRotation = 0.0f;
 
+        private float distToGround=1f;
+        private bool isGrounded;
 
         //visual components
         private AnimationManager anim;
         private TimedEffect speedEffect;
         private PlayerVoiceManager playerVoice;
-
+       
 
         #region Setup
         private void Awake()
@@ -51,12 +54,14 @@ namespace EAE.Race.Player
             playerVoice = GetComponent<PlayerVoiceManager>();
         }
 
+
         #endregion Setup
 
 
         private void Update()
         {
-            if (!flipping && Input.GetKeyDown(KeyCode.W))
+            CheckGrounded();           
+            if (!flipping && Input.GetKeyDown(KeyCode.W) && !isGrounded)
             {
                 StartFlip();
             }
@@ -111,6 +116,18 @@ namespace EAE.Race.Player
             }
 
         }
+
+        #region Grounded
+        public void CheckGrounded()
+        {           
+            isGrounded = Physics.Raycast(transform.position +  new Vector3(0,distToGround,0), -Vector3.up, distToGround + 0.1f);
+        }
+
+        public bool IsGrounded()
+        {
+            return isGrounded;
+        }
+        #endregion
 
 
         #region Boost
