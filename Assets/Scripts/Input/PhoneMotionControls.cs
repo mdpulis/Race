@@ -35,7 +35,8 @@ namespace EAE.Race.InputMethods
         }
 
         void processOrientation()
-        {            
+        {
+            if (!SystemInfo.supportsGyroscope) { return; }
             Vector3 euler = deviceAttitude.eulerAngles;
             // Debug.Log("x:" + euler.x + " y:" + euler.y + " z:" + euler.z);
             float rotationDeltaZ = Mathf.Abs(euler.z - deviceOrigin.z);

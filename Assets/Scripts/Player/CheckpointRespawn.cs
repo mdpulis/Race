@@ -15,4 +15,13 @@ public class CheckpointRespawn : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag.Equals("Checkpoint"))
+        {
+            Debug.Log("CHECKPOINT!");
+        }
+        
+    }
 }
