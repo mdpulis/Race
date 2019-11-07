@@ -7,6 +7,7 @@ namespace EAE.Race.Player
     /// <summary>
     /// Controls the player
     /// </summary>
+    [RequireComponent(typeof(Collider))]
     public class PlayerController : MonoBehaviour
     {
         public Transform Models;
@@ -15,7 +16,8 @@ namespace EAE.Race.Player
         //public modifiable variables
         public float BoardSpeed = 3.0f;
         public float RotateSpeed = 30.0f;
-        public float BoostMod = 2.0f;      
+        public float BoostMod = 2.0f;
+        public float straightDeadZone;
 
         //private gameplay variables
         private bool racing = false;
@@ -34,12 +36,14 @@ namespace EAE.Race.Player
         private float startRotation = 0.0f;
         private float endRotation = 0.0f;
 
+        private float distToGround=1f;
+        private bool isGrounded;
 
         //visual components
         private AnimationManager anim;
         private TimedEffect speedEffect;
         private PlayerVoiceManager playerVoice;
-
+       
 
         #region Setup
         private void Awake()
@@ -51,12 +55,14 @@ namespace EAE.Race.Player
             playerVoice = GetComponent<PlayerVoiceManager>();
         }
 
+
         #endregion Setup
 
 
         private void Update()
         {
-            if (!flipping && Input.GetKeyDown(KeyCode.W))
+            CheckGrounded();           
+            if (!flipping && Input.GetKeyDown(KeyCode.W) && !isGrounded)
             {
                 StartFlip();
             }
@@ -111,6 +117,31 @@ namespace EAE.Race.Player
             }
 
         }
+
+
+        #region Movement
+        public void setMovingLeft(bool state)
+        {
+            this.movingLeft = state;
+        }
+
+        public void setMovingRight(bool state)
+        {
+            this.movingRight = state;
+        }
+        #endregion
+
+        #region Grounded
+        public void CheckGrounded()
+        {           
+            isGrounded = Physics.Raycast(transform.position +  new Vector3(0,distToGround,0), -Vector3.up, distToGround + 0.1f);
+        }
+
+        public bool IsGrounded()
+        {
+            return isGrounded;
+        }
+        #endregion
 
 
         #region Boost
