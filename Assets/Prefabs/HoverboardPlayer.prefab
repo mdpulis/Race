@@ -91,6 +91,8 @@ MonoBehaviour:
   RotateSpeed: 135
   BoostMod: 1.5
   straightDeadZone: 0
+  anim: {fileID: 0}
+  playerVoice: {fileID: 0}
 --- !u!54 &6411872909363255739
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -101,7 +103,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1000
   m_Drag: 1
-  m_AngularDrag: Infinity
+  m_AngularDrag: 2.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -143,6 +145,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 58e2bf8425f194440add72ee1abfcc2f, type: 3}
   - {fileID: 8300000, guid: 0bcf363c116234b2eb593bac01a170d4, type: 3}
   - {fileID: 8300000, guid: 89d7ad5062d904e9abe7e0b430d7c844, type: 3}
+  - {fileID: 8300000, guid: d42eccd24e0ee4aef80df9398ec0747c, type: 3}
+  - {fileID: 8300000, guid: adf7488d7a7d741409ceb3f11b90852b, type: 3}
+  - {fileID: 8300000, guid: 1fd7d2c354c86467cb0e57f86e88cdb9, type: 3}
+  sadSounds:
+  - {fileID: 8300000, guid: d7c4040670e28478fbd49fd9b6060ac8, type: 3}
+  - {fileID: 8300000, guid: 874dc2aadd4204ec1987fcd17f8d7fb8, type: 3}
+  - {fileID: 8300000, guid: 78dfa7e84d21b4adab175b30eb01eacc, type: 3}
+  - {fileID: 8300000, guid: 84ee1f63e62794ce592a506085b8dd87, type: 3}
+  - {fileID: 8300000, guid: 1fea949ca16274adb8e4a6a9b673d938, type: 3}
+  - {fileID: 8300000, guid: d0e506a921cc445d6bac45b0420624a5, type: 3}
 --- !u!114 &1731148088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,12 +162,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6411872909363255741}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88d050862a154d347abfee060be65c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadzone: 15
+  deadzone: 3.5
 --- !u!114 &1102420684197291488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,6 +895,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 835893980231998647, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 835893980231998645, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
         type: 3}

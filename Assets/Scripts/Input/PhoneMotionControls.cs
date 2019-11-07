@@ -20,6 +20,7 @@ namespace EAE.Race.InputMethods
         void Start()
         {
             pc = GetComponent<PlayerController>();
+            Debug.Log(SystemInfo.supportsGyroscope);
             if(SystemInfo.supportsGyroscope)
             {
                 Input.gyro.enabled = true;
@@ -40,16 +41,21 @@ namespace EAE.Race.InputMethods
             Vector3 euler = deviceAttitude.eulerAngles;
             // Debug.Log("x:" + euler.x + " y:" + euler.y + " z:" + euler.z);
             float rotationDeltaZ = Mathf.Abs(euler.z - deviceOrigin.z);
+            float sign = Mathf.Sign(euler.z - deviceOrigin.z);
             if(rotationDeltaZ>deadzone)
             {
-                pc.setMovingLeft(false);
-                pc.setMovingRight(true);
-            }else if(rotationDeltaZ>deadzone)
-            {
-                pc.setMovingLeft(true);
-                pc.setMovingRight(false);
-            }
-            else
+                if(sign<0)
+                {
+                    pc.setMovingLeft(false);
+                    pc.setMovingRight(true);
+                }
+                else
+                {
+                    pc.setMovingLeft(true);
+                    pc.setMovingRight(false);
+                }
+               
+            }else 
             {
                 pc.setMovingLeft(false);
                 pc.setMovingRight(false);

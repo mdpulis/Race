@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4840,76 +4840,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 929629020351547083, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6411872909363255739, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: excitedSounds.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: excitedSounds.Array.data[10]
-      value: 
-      objectReference: {fileID: 8300000, guid: d42eccd24e0ee4aef80df9398ec0747c, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: excitedSounds.Array.data[11]
-      value: 
-      objectReference: {fileID: 8300000, guid: adf7488d7a7d741409ceb3f11b90852b, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: d7c4040670e28478fbd49fd9b6060ac8, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 874dc2aadd4204ec1987fcd17f8d7fb8, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 78dfa7e84d21b4adab175b30eb01eacc, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: excitedSounds.Array.data[12]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1fd7d2c354c86467cb0e57f86e88cdb9, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 84ee1f63e62794ce592a506085b8dd87, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1fea949ca16274adb8e4a6a9b673d938, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: d0e506a921cc445d6bac45b0420624a5, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1fea949ca16274adb8e4a6a9b673d938, type: 3}
-    - target: {fileID: 145502313, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: sadSounds.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1fea949ca16274adb8e4a6a9b673d938, type: 3}
-    - target: {fileID: 1731148088, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1731148088, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
-      propertyPath: deadzone
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
