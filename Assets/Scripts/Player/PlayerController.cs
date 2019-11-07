@@ -16,7 +16,8 @@ namespace EAE.Race.Player
         //public modifiable variables
         public float BoardSpeed = 3.0f;
         public float RotateSpeed = 30.0f;
-        public float BoostMod = 2.0f;      
+        public float BoostMod = 2.0f;
+        public float straightDeadZone;
 
         //private gameplay variables
         private bool racing = false;
@@ -116,6 +117,19 @@ namespace EAE.Race.Player
             }
 
         }
+
+
+        #region Movement
+        public void setMovingLeft(bool state)
+        {
+            this.movingLeft = state;
+        }
+
+        public void setMovingRight(bool state)
+        {
+            this.movingRight = state;
+        }
+        #endregion
 
         #region Grounded
         public void CheckGrounded()
