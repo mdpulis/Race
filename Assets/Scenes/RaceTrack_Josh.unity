@@ -3106,24 +3106,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 43.191, z: 0}
---- !u!1 &1731148087 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6411872909363255741, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
-    type: 3}
-  m_PrefabInstance: {fileID: 6411872909590224566}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1731148088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731148087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c59d7f17e8bde1942b03805f1b304e84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1743562001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,7 +3499,7 @@ GameObject:
   - component: {fileID: 1954815561}
   m_Layer: 0
   m_Name: CheckPoint
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3845,7 +3827,7 @@ GameObject:
   - component: {fileID: 2130984882}
   m_Layer: 0
   m_Name: CheckpointVolume
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3995,13 +3977,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6411872909363255739, guid: 2a66ff3abd9b43d48a0457c3e87942b7,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1731148088, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1731148088, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
       propertyPath: deadzone
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a66ff3abd9b43d48a0457c3e87942b7, type: 3}
