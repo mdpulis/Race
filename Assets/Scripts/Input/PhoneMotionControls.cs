@@ -30,6 +30,7 @@ namespace EAE.Race.InputMethods
 
         void processOrientation()
         {
+            Debug.Log(deviceAttitude);
             Vector3 euler = deviceAttitude.eulerAngles;
             Debug.Log("x:" + euler.x + " y:" + euler.y + " z:" + euler.z);
         }
