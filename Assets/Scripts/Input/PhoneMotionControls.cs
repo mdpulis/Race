@@ -18,6 +18,7 @@ namespace EAE.Race.InputMethods
         void Start()
         {
             pc = GetComponent<PlayerController>();
+            Debug.Log(SystemInfo.supportsGyroscope);
         }
 
         // Update is called once per frame
