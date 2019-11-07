@@ -122,6 +122,11 @@ namespace EAE.Race.Player
         {           
             isGrounded = Physics.Raycast(transform.position +  new Vector3(0,distToGround,0), -Vector3.up, distToGround + 0.1f);
         }
+
+        public bool IsGrounded()
+        {
+            return isGrounded;
+        }
         #endregion
 
 
