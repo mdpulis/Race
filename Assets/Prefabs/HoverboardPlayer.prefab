@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 6411872909363255738}
   - component: {fileID: 145502313}
   - component: {fileID: 1731148088}
+  - component: {fileID: 1102420684197291488}
   m_Layer: 2
   m_Name: HoverboardPlayer
   m_TagString: Untagged
@@ -153,7 +154,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d050862a154d347abfee060be65c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadzone: 10
+  deadzone: 0
+--- !u!114 &1102420684197291488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6411872909363255741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59d7f17e8bde1942b03805f1b304e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6411872910168945179
 GameObject:
   m_ObjectHideFlags: 0
