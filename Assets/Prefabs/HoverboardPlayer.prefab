@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6411872909363255739}
   - component: {fileID: 6411872909363255738}
   - component: {fileID: 145502313}
-  - component: {fileID: 2136178855}
+  - component: {fileID: 1731148088}
   m_Layer: 2
   m_Name: HoverboardPlayer
   m_TagString: Untagged
@@ -88,6 +88,7 @@ MonoBehaviour:
   BoardSpeed: 10
   RotateSpeed: 135
   BoostMod: 1.5
+  straightDeadZone: 0
 --- !u!54 &6411872909363255739
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,19 +141,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 58e2bf8425f194440add72ee1abfcc2f, type: 3}
   - {fileID: 8300000, guid: 0bcf363c116234b2eb593bac01a170d4, type: 3}
   - {fileID: 8300000, guid: 89d7ad5062d904e9abe7e0b430d7c844, type: 3}
---- !u!114 &2136178855
+--- !u!114 &1731148088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6411872909363255741}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c8b5f229195c264ebd3e1b42113d437, type: 3}
+  m_Script: {fileID: 11500000, guid: 88d050862a154d347abfee060be65c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightingSpeed: 1
+  deadzone: 10
 --- !u!1 &6411872910168945179
 GameObject:
   m_ObjectHideFlags: 0
