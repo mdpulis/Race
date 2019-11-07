@@ -3016,7 +3016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d050862a154d347abfee060be65c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadzone: 0
+  deadzone: 10
 --- !u!1 &1743562001
 GameObject:
   m_ObjectHideFlags: 0
