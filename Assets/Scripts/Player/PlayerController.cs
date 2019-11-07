@@ -150,7 +150,7 @@ namespace EAE.Race.Player
         }
         #endregion Boost
 
-        #region Boost
+        #region Flip
         /// <summary>
         /// Starts the flip for the player
         /// </summary>
@@ -171,7 +171,7 @@ namespace EAE.Race.Player
             currentFlipTime = 0.0f;
             flipping = false;
         }
-        #endregion Boost
+        #endregion Flip
 
     }
 }
