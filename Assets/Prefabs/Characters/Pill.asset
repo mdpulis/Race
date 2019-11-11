@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8d4a9aeef2d504c834a5df81a81b55, type: 3}
+  m_Name: Pill
+  m_EditorClassIdentifier: 
+  CharacterNameEN: Pill
+  CharacterSprite: {fileID: 21300000, guid: 94c06998c5a2c8141b9b59cc95a93edd, type: 3}
+  CharacterModel: {fileID: 2236216597022625100, guid: 3520b22fc56bf0f4c9832c25f8bb07cf,
+    type: 3}
+  LockedByDefault: 1
+  ElonCoinCost: 999
+  DollarCost: 9.99
