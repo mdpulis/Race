@@ -16,4 +16,11 @@ public static class Util
             return list[0];        
         return list[(Random.Range(0, list.Count))];
     }
+
+    public static string SecondsToMinutesSeconds(float seconds)
+    {
+        int minutes = Mathf.FloorToInt(seconds / 60);
+        seconds %= 60;
+        return minutes.ToString("00") + ":" + seconds.ToString("00");
+    }
 }

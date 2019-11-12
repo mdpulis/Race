@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using EAE.Race.Utility;
+using EAE.Race.Scoring;
 
 namespace EAE.Race.MainMenu
 {
@@ -22,12 +23,19 @@ namespace EAE.Race.MainMenu
 
         private LoadingScreenManager loadingScreenManager;
 
+        private LeaderBoardManager leaderBoard;
+
         private void Awake()
         {
             if (GameObject.FindObjectOfType<LoadingScreenManager>() != null)
                 loadingScreenManager = GameObject.FindObjectOfType<LoadingScreenManager>();
             else
                 Debug.LogWarning("WARNING: No loading screen manager found! Can't change scenes.");
+
+            if (GameObject.FindObjectOfType<LeaderBoardManager>() != null)
+                leaderBoard = GameObject.FindObjectOfType<LeaderBoardManager>();
+            else
+                Debug.LogWarning("WARNING: No Leaderboard manager found! Can't populate scores.");
         }
 
         /// <summary>
@@ -36,7 +44,18 @@ namespace EAE.Race.MainMenu
         public void Initialize(string localizedLevelName, string sceneName, Sprite levelSprite, float bestTime)
         {
             LevelNameText.text = localizedLevelName;
-            BestTimeText.text = "Best " + bestTime.ToString(); //TODO fix
+
+            if (leaderBoard.getHighScoreForLevel(localizedLevelName) > bestTime)
+            {
+                BestTimeText.text = "Record: " + leaderBoard.getHighScoreStringForLevel(localizedLevelName);
+            }
+            else
+            {
+                BestTimeText.text = "Record: " + bestTime.ToString(); //TODO fix
+            }
+           
+
+
             LevelImage.sprite = levelSprite;
             internalSceneName = sceneName;
 
