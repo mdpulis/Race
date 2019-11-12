@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Checkpoint
+  - CharacterModel
+  - FinishLine
+  - LevelStartPosition
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - NewPostProcessing
   - 
   - 
   - 

@@ -4,140 +4,106 @@ using UnityEngine;
 using System.IO;
 using System.Text;
 
-public class LeaderBoardManager : MonoBehaviour
+namespace EAE.Race.Scoring
 {
-
-    private string path = "Assets/Resources/Leaderboard/score.txt";
-    public int numScores = 5;
-    List<score> scores = new List<score>();
-    // Start is called before the first frame update
-    void Start()
-    {
-        ReadScores();
-        Debug.Log(GetDisplayStringForAllScores());
-    }
-
-    // Update is called once per frame
-    void Update()
+    public class LeaderBoardManager : MonoBehaviour
     {
 
-    }
-
-    public string GetDisplayStringForAllScores()
-    {
-        return GetDisplayStringForScores(0);
-    }
-
-    public string GetDisplayStringForScores(int scoresToCount=0)
-    {
-        if(scoresToCount == 0)
+        private string path = "Assets/Resources/Leaderboard/score.txt";      
+        Dictionary<string,float>scores;
+        private string currentLevel;
+        
+        // Start is called before the first frame update
+        void Start()
         {
-            scoresToCount = numScores;
+            DontDestroyOnLoad(this);
+            scores = new Dictionary<string, float>();            
+            ReadScores();            
         }
 
-        scoresToCount = Mathf.Min(scoresToCount, numScores);
-        SortAndTruncateScores();
-        StringBuilder sb = new StringBuilder();
-
-        int count = 0;
-
-        foreach (score current in scores)
+        // Update is called once per frame
+        void Update()
         {
-            if (count > scoresToCount) { break; }
-            sb.Append(current.GetDisplayFormatString());
-            count++;
-        }
-        return sb.ToString();
-    }
 
-    private void ReadScores()
-    {
-        try
+        }  
+
+        private void ReadScores()
         {
-            scores.Clear();
-            StreamReader reader = new StreamReader(path);
-            string line;// = reader.ReadLine();
-            while ((line = reader.ReadLine()) != null)
+            try
             {
-                string[] splits = line.Split(',');
-                scores.Add(new score(int.Parse(splits[1]), splits[0]));
+                scores.Clear();
+                StreamReader reader = new StreamReader(path);
+                string line;// = reader.ReadLine();
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] splits = line.Split(',');
+                    scores.Add(splits[1], float.Parse(splits[0]));                    
+                }
+                reader.Close();
             }
-            reader.Close();
-        }
-        catch (System.Exception e)
-        {
-            Debug.Log("File Read error:" + e.Message);
-        }
-
-    }
-
-    public void WriteScores()
-    {
-        try
-        {
-            StreamWriter writer = new StreamWriter(path, false);
-            SortAndTruncateScores();
-            StringBuilder sb = new StringBuilder();
-            foreach (score current in scores)
+            catch (System.Exception e)
             {
-                sb.Append(current.GetFileFormatString());
+                Debug.Log("File Read error:" + e.Message);
             }
-            writer.Write(sb.ToString());
-            writer.Close();
+
         }
-        catch (System.Exception e)
+
+        public void WriteScores()
         {
-            Debug.Log("File Write Error: " + e.Message);
+            try
+            {
+                StreamWriter writer = new StreamWriter(path, false);               
+                StringBuilder sb = new StringBuilder();
+                foreach(KeyValuePair<string,float> pair in scores)
+                {
+                    sb.Append(pair.Key + "," + pair.Value);
+                }
+                writer.Write(sb.ToString());
+                writer.Close();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("File Write Error: " + e.Message);
+            }
+
         }
-
-    }
-
-    void SortAndTruncateScores()
-    {
-        scores.Sort(delegate (score s1, score s2) { return s1.scoreVal.CompareTo(s2.scoreVal); });
-        int toRemove = scores.Count - numScores;
-        if (toRemove > 0)
+        public void setCurrentLevelID(string levelName)
         {
-            scores.RemoveRange(numScores, toRemove);
+            currentLevel = levelName;
         }
+        public void RecordScore(float score)
+        {
+            if(scores.ContainsKey(currentLevel))
+            {
+                if(scores[currentLevel]<score)
+                {
+                    scores[currentLevel] = score;
+                }
+            }
+            scores.Add(currentLevel,score);
+        }
+
+        public float getHighScoreForLevel(string levelName)
+        {
+            if (scores.ContainsKey(levelName))
+            {
+               return scores[levelName];
+            }
+
+            return float.MaxValue;
+        }
+
+        public string getHighScoreStringForLevel(string levelName)
+        {
+            if(scores.ContainsKey(levelName))
+            {
+                return Util.SecondsToMinutesSeconds(scores[levelName]);
+            }
+
+            return "No Level Data Found";
+        }
+
     }
 
-    public void RecordScore(string name, int score)
-    {
-        scores.Add(new score(score, name));
-    }
-
-    public bool IsHighScore(int score)
-    {
-        SortAndTruncateScores();
-        if (scores.Count < numScores) { return true; }
-        return score < scores[scores.Count - 1].scoreVal;
-
-    }
-}
-class score
-{
-    public float scoreVal;
-    public string name;
-    public score(float time, string name)
-    {
-        this.scoreVal = time;
-        this.name = name;
-    }
-    private string SecondsToMinutesSeconds(float seconds)
-    {
-        int minutes =Mathf.FloorToInt(seconds / 60);
-        seconds %= 60;
-        return minutes.ToString("00") + ":" + seconds.ToString("00");
-    }
-
-    public string GetDisplayFormatString()
-    {
-        return name + "| " + SecondsToMinutesSeconds(scoreVal) + "\n";
-    }
-    public string GetFileFormatString()
-    {
-        return name + "," + scoreVal + "\n";
-    }
 
 }

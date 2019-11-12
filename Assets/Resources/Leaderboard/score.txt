@@ -1,6 +1,2 @@
-tector,9999
-josh,25
-jen,65
-jon,89
-joseph,134
-jordan,463
+1,50
+2,70

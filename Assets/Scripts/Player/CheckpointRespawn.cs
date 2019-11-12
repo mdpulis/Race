@@ -10,7 +10,7 @@ namespace EAE.Race.Player
     {
         private Transform lastCheckpoint;
         private Rigidbody rb;
-        PlayerController pc;
+        private PlayerController pc;
 
         // Start is called before the first frame update
         void Start()
@@ -46,9 +46,14 @@ namespace EAE.Race.Player
             {
                 lastCheckpoint = other.gameObject.transform.parent.transform;
              
-            }else if (other.CompareTag("Respawn"))
+            }
+            else if (other.CompareTag("Respawn"))
             {
                 RespawnPlayer();
+            }
+            else if (other.CompareTag("FinishLine"))
+            {
+                pc.EndRacing();
             }
 
         }

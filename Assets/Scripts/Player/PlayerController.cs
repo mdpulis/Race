@@ -46,7 +46,7 @@ namespace EAE.Race.Player
         private float currentSlideTime = 0.0f;
         private const float MAX_SLIDE_TIME = 1.0f;
 
-        private float distToGround=1f;
+        private float distToGround = 1f;
         private bool isGrounded;
         private bool beganJump = false;
 
@@ -54,11 +54,16 @@ namespace EAE.Race.Player
         private Rigidbody playerRigidbody;
         private Animator playerAnimator;
 
+
+        //private object references
+        private Transform levelStartPosition;
+        private LevelFinishUI levelFinishUI;
+
         //visual components
         public AnimationManager anim;
         private TimedEffect speedEffect;
         public PlayerVoiceManager playerVoice;
-       
+
 
         #region Setup
         private void Awake()
@@ -68,12 +73,18 @@ namespace EAE.Race.Player
             playerRigidbody = this.GetComponent<Rigidbody>();
             playerAnimator = this.GetComponentInChildren<Animator>();
 
+            if(GameObject.FindGameObjectWithTag("LevelStartPosition") != null)
+                levelStartPosition = GameObject.FindGameObjectWithTag("LevelStartPosition").GetComponent<Transform>();
+            levelFinishUI = FindHelper.FindObjectOfTypeEvenIfInactive<LevelFinishUI>();
+
             anim = GetComponentInChildren<AnimationManager>();
             speedEffect = Camera.main.GetComponentInChildren<TimedEffect>();
             playerVoice = GetComponent<PlayerVoiceManager>();
 
             //playerRigidbody.centerOfMass = new Vector3(0, 0, 0);
             SlidingBoxCollider.SetActive(false); //turn off just in case it's on
+
+            this.transform.SetPositionAndRotation(levelStartPosition.position, levelStartPosition.rotation);
         }
 
 
@@ -82,7 +93,10 @@ namespace EAE.Race.Player
 
         private void Update()
         {
-            if(isGrounded) //if grounded
+            if (!racing)
+                return;
+
+            if (isGrounded) //if grounded
             {
                 if (!flipping && !sliding && Input.GetKeyDown(KeyCode.W))
                 {
@@ -101,7 +115,7 @@ namespace EAE.Race.Player
                     StartFlip();
                 }
             }
-            
+
         }
 
         // Fixed Update is called 50 times per second
@@ -128,16 +142,16 @@ namespace EAE.Race.Player
             else
                 transform.Translate(Vector3.forward * BoardSpeed * BoostMod * Time.deltaTime);
 
-            if(boosting)
+            if (boosting)
             {
                 currentBoostTime += Time.fixedDeltaTime;
-                if(currentBoostTime > MAX_BOOST_TIME)
+                if (currentBoostTime > MAX_BOOST_TIME)
                 {
                     EndBoost();
                 }
             }
 
-            if(flipping)
+            if (flipping)
             {
                 currentFlipTime += Time.fixedDeltaTime;
 
@@ -179,15 +193,15 @@ namespace EAE.Race.Player
 
         #region Grounded
         public void CheckGrounded()
-        {           
-            isGrounded = Physics.Raycast(transform.position +  new Vector3(0,distToGround,0), -Vector3.up, distToGround + 0.5f);
+        {
+            isGrounded = Physics.Raycast(transform.position + new Vector3(0, distToGround, 0), -Vector3.up, distToGround + 0.5f);
 
-            if(!beganJump && !isGrounded)
+            if (!beganJump && !isGrounded)
             {
                 beganJump = true;
                 airFlips = 0;
             }
-            else if(beganJump && isGrounded)
+            else if (beganJump && isGrounded)
             {
                 beganJump = false;
                 if (airFlips > 0)
@@ -246,6 +260,16 @@ namespace EAE.Race.Player
                 Debug.Log("No player animator found");
         }
 
+        /// <summary>
+        /// Can the player jump right now?
+        /// </summary>
+        public bool CanJump()
+        {
+            if (isGrounded && !flipping && !sliding)
+                return true;
+            else
+                return false;
+        }
         #endregion Jump
 
         #region Slide
@@ -277,6 +301,17 @@ namespace EAE.Race.Player
             currentSlideTime = 0.0f;
             sliding = false;
         }
+
+        /// <summary>
+        /// Can the player slide right now?
+        /// </summary>
+        public bool CanSlide()
+        {
+            if (isGrounded && !flipping && !sliding)
+                return true;
+            else
+                return false;
+        }
         #endregion Slide
 
         #region Flip
@@ -302,7 +337,50 @@ namespace EAE.Race.Player
 
             airFlips++;
         }
+
+        /// <summary>
+        /// Can the player flip right now?
+        /// </summary>
+        public bool CanFlip()
+        {
+            if (!isGrounded && !flipping && !sliding)
+                return true;
+            else
+                return false;
+        }
         #endregion Flip
 
+        #region End Racing
+        /// <summary>
+        /// Ends the race and movement
+        /// </summary>
+        public void EndRacing()
+        {
+            racing = false;
+            levelFinishUI.gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// Resets racing and sets to default position
+        /// </summary>
+        public void ResetRacing()
+        {
+            levelFinishUI.gameObject.SetActive(false);
+            this.transform.SetPositionAndRotation(levelStartPosition.position, levelStartPosition.rotation);
+            racing = true;
+        }
+
+        #endregion End Racing
+
+        #region Getters
+        /// <summary>
+        /// Is the player currently racing?
+        /// </summary>
+        public bool IsRacing()
+        {
+            return racing;
+        }
+
+        #endregion
     }
 }
