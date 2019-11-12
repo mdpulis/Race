@@ -54,6 +54,11 @@ namespace EAE.Race.Player
         private Rigidbody playerRigidbody;
         private Animator playerAnimator;
 
+
+        //private object references
+        private Transform levelStartPosition;
+        private LevelFinishUI levelFinishUI;
+
         //visual components
         public AnimationManager anim;
         private TimedEffect speedEffect;
@@ -68,12 +73,18 @@ namespace EAE.Race.Player
             playerRigidbody = this.GetComponent<Rigidbody>();
             playerAnimator = this.GetComponentInChildren<Animator>();
 
+            if(GameObject.FindGameObjectWithTag("LevelStartPosition") != null)
+                levelStartPosition = GameObject.FindGameObjectWithTag("LevelStartPosition").GetComponent<Transform>();
+            levelFinishUI = FindHelper.FindObjectOfTypeEvenIfInactive<LevelFinishUI>();
+
             anim = GetComponentInChildren<AnimationManager>();
             speedEffect = Camera.main.GetComponentInChildren<TimedEffect>();
             playerVoice = GetComponent<PlayerVoiceManager>();
 
             //playerRigidbody.centerOfMass = new Vector3(0, 0, 0);
             SlidingBoxCollider.SetActive(false); //turn off just in case it's on
+
+            this.transform.SetPositionAndRotation(levelStartPosition.position, levelStartPosition.rotation);
         }
 
 
@@ -346,6 +357,17 @@ namespace EAE.Race.Player
         public void EndRacing()
         {
             racing = false;
+            levelFinishUI.gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// Resets racing and sets to default position
+        /// </summary>
+        public void ResetRacing()
+        {
+            levelFinishUI.gameObject.SetActive(false);
+            this.transform.SetPositionAndRotation(levelStartPosition.position, levelStartPosition.rotation);
+            racing = true;
         }
 
         #endregion End Racing

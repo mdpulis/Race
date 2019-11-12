@@ -13,20 +13,26 @@ namespace EAE.Race.Player
         private float timePlayed = 0.0f;
 
         private PlayerUI playerUI;
+        private PlayerController playerController;
 
         private void Awake()
         {
             playerUI = GameObject.FindObjectOfType<PlayerUI>();
+            playerController = GameObject.FindObjectOfType<PlayerController>();
         }
 
         private void Update()
         {
-            timePlayed += Time.deltaTime;
-
-            if(playerUI != null)
+            if(playerController.IsRacing())
             {
-                playerUI.SetTimeText(timePlayed);
+                timePlayed += Time.deltaTime;
+
+                if (playerUI != null)
+                {
+                    playerUI.SetTimeText(timePlayed);
+                }
             }
+
         }
 
 
@@ -37,6 +43,20 @@ namespace EAE.Race.Player
         {
             money += addedMoney;
             playerUI.SetMoneyText(money);
+        }
+
+        /// <summary>
+        /// Resets the player's data back to default
+        /// </summary>
+        public void ResetPlayerData()
+        {
+            money = 0;
+            timePlayed = 0.0f;
+
+            playerUI.SetMoneyText(money);
+            playerUI.SetTimeText(timePlayed);
+
+            playerController.ResetRacing();
         }
 
         /// <summary>
