@@ -34,11 +34,18 @@ namespace EAE.Race.MainMenu
         public Transform CharacterList;
         public Transform CharacterDisplayLocation;
         public List<CharacterInfo> SelectableCharacterInfos;
+        private GameObject currentlyDisplayingCharacterModel;
+
+        //Selecting Hoverboard
+        public SelectableHoverboardPrefabObject SelectableHoverboardPrefabObject_PO;
+        public Transform HoverboardList;
+        public Transform HoverboardDisplayLocation;
+        public List<HoverboardInfo> SelectableHoverboardInfos;
+        private GameObject currentlyDisplayingHoverboardModel;
 
         //Private variables for management
         private MainMenuStates mainMenuState = MainMenuStates.MainMenu;
 
-        private GameObject currentlyDisplayingCharacterModel;
 
         //Private variables for references
         private Animator mainMenuAnimator;
@@ -57,6 +64,7 @@ namespace EAE.Race.MainMenu
         {
             //selectableLevelPOs = new List<SelectableLevelPrefabObject>();
             //selectableCharacterPOs = new List<SelectableCharacterPrefabObject>();
+            //selectableHoverboardPOs = new List<SelectableHoverboardPrefabObject>();
 
             mainMenuAnimator = this.GetComponent<Animator>();
             OpenMainMenuScreen();
@@ -64,6 +72,7 @@ namespace EAE.Race.MainMenu
 
             InitializeLevels();
             InitializeCharacters();
+            InitializeHoverboards();
         }
 
         /// <summary>
@@ -86,7 +95,7 @@ namespace EAE.Race.MainMenu
         }
 
         /// <summary>
-        /// Initializes all of the characters for the select level screen
+        /// Initializes all of the characters for the select character screen
         /// </summary>
         private void InitializeCharacters()
         {
@@ -120,6 +129,40 @@ namespace EAE.Race.MainMenu
         }
 
         /// <summary>
+        /// Initializes all of the hoverboards for the select hoverboard screen
+        /// </summary>
+        private void InitializeHoverboards()
+        {
+            if (SelectableHoverboardInfos == null || SelectableHoverboardInfos.Count < 1)
+                return;
+
+            foreach (HoverboardInfo hi in SelectableHoverboardInfos)
+            {
+                if (hi == null)
+                    continue;
+
+                SelectableHoverboardPrefabObject shpo = Instantiate(SelectableHoverboardPrefabObject_PO).GetComponent<SelectableHoverboardPrefabObject>();
+                shpo.Initialize(hi.GetLocalizedHoverboardName(), hi.HoverboardSprite, hi.LockedByDefault, hi.ElonCoinCost, hi.DollarCost, hi.HoverboardModel);
+                shpo.transform.SetParent(HoverboardList, false);
+
+                shpo.SelectHoverboardButton.onClick.AddListener(() =>
+                {
+                    if (shpo.IsUnlocked())
+                        DisplayHoverboardModel(hi.HoverboardModel);
+                }); //displays the character model on click too
+
+
+                //TODO fix, right now this just selects the first hoverboard in the list by default
+                if (currentlyDisplayingHoverboardModel == null)
+                {
+                    shpo.SelectHoverboardButton.onClick.Invoke();
+                    //scpo.TurnOnOffSelectedCheckmark(true);
+                    //DisplayCharacterModel(co.CharacterModel);
+                }
+            }
+        }
+
+        /// <summary>
         /// Displays a character model and gets rid of the previous one
         /// </summary>
         public void DisplayCharacterModel(GameObject newCharModel)
@@ -131,6 +174,20 @@ namespace EAE.Race.MainMenu
             ncm.transform.SetParent(CharacterDisplayLocation, false);
 
             currentlyDisplayingCharacterModel = ncm;
+        }
+
+        /// <summary>
+        /// Displays a hoverboard model and gets rid of the previous one
+        /// </summary>
+        public void DisplayHoverboardModel(GameObject newHoverboardModel)
+        {
+            if (currentlyDisplayingHoverboardModel != null)
+                Destroy(currentlyDisplayingHoverboardModel);
+
+            GameObject nhm = Instantiate(newHoverboardModel);
+            nhm.transform.SetParent(HoverboardDisplayLocation, false);
+
+            currentlyDisplayingHoverboardModel = nhm;
         }
 
 
