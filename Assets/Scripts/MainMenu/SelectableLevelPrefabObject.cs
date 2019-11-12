@@ -45,13 +45,15 @@ namespace EAE.Race.MainMenu
         {
             LevelNameText.text = localizedLevelName;
 
-            if (leaderBoard.getHighScoreForLevel(localizedLevelName) > bestTime)
+            leaderBoard.setCurrentLevelID(localizedLevelName);
+            leaderBoard.RecordScore(bestTime,true );
+            if (leaderBoard.getHighScoreForLevel(localizedLevelName) < bestTime)
             {
                 BestTimeText.text = "Record: " + leaderBoard.getHighScoreStringForLevel(localizedLevelName);
             }
             else
             {
-                BestTimeText.text = "Record: " + bestTime.ToString(); //TODO fix
+                BestTimeText.text = "Record: " + Util.SecondsToMinutesSeconds(bestTime); //TODO fix
             }
            
 
@@ -68,9 +70,15 @@ namespace EAE.Race.MainMenu
         public void SelectLevel()
         {
             if (loadingScreenManager != null)
+            {
+                leaderBoard.setCurrentLevelID(LevelNameText.text);
                 loadingScreenManager.LoadLevel(internalSceneName);
+            }              
             else
+            {
                 Debug.LogWarning("WARNING: No loading screen manager found! Can't change scenes.");
+            }
+               
         }
 
 
