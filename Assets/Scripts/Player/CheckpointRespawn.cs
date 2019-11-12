@@ -49,6 +49,9 @@ namespace EAE.Race.Player
             }else if (other.CompareTag("Respawn"))
             {
                 RespawnPlayer();
+            }else if (other.CompareTag("FinishLine"))
+            {
+              //  pc.EndRacing();
             }
 
         }
