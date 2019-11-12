@@ -53,6 +53,7 @@ namespace EAE.Race.MainMenu
 
         //Ads!
         public GameObject AdHolder;
+        private AdVideoPlayer adVideoPlayer;
 
         //Private variables for management
         private MainMenuStates mainMenuState = MainMenuStates.MainMenu;
@@ -81,6 +82,7 @@ namespace EAE.Race.MainMenu
 
             mainMenuAnimator = this.GetComponent<Animator>();
             playerSettings = GameObject.FindObjectsOfType<PlayerSettings>().Where(x => x.IsInitialized()).FirstOrDefault();
+            adVideoPlayer = GameObject.FindObjectOfType<AdVideoPlayer>();
 
             OpenMainMenuScreen();
             //mainMenuAnimator.SetBool(MAIN, true); //setup anim at start
@@ -206,6 +208,15 @@ namespace EAE.Race.MainMenu
         {
             yield return new WaitForSeconds(7.0f);
             AdHolder.SetActive(true);
+        }
+
+        /// <summary>
+        /// Shows the video ad
+        /// </summary>
+        public void ShowVideoAd()
+        {
+            if (adVideoPlayer != null)
+                adVideoPlayer.PlayVideo();
         }
 
         /// <summary>

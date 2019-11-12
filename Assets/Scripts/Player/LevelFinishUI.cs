@@ -15,11 +15,16 @@ namespace EAE.Race.Player
         private PlayerData playerData;
         private LeaderBoardManager leaderBoard;
 
+        private AdVideoPlayer adVideoPlayer;
+
         private void Awake()
         {
             loadingScreenManager = GameObject.FindObjectOfType<LoadingScreenManager>();
             leaderBoard = GameObject.FindObjectOfType<LeaderBoardManager>();          
             playerData = GameObject.FindObjectOfType<PlayerData>();
+
+            adVideoPlayer = GameObject.FindObjectOfType<AdVideoPlayer>();
+
             handleScore();
         }
 
@@ -43,6 +48,15 @@ namespace EAE.Race.Player
         public void ReturnToMainMenu()
         {
             loadingScreenManager.LoadLevel("MainMenu");
+        }
+
+        /// <summary>
+        /// Displays an ad
+        /// </summary>
+        public void DisplayVideoAd()
+        {
+            if (adVideoPlayer != null)
+                adVideoPlayer.PlayVideo();
         }
 
 
