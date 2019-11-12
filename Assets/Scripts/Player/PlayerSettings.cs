@@ -10,6 +10,9 @@ namespace EAE.Race.Player
     /// </summary>
     public class PlayerSettings : MonoBehaviour
     {
+        public GameObject DefaultCharacter;
+        public GameObject DefaultHoverboard;
+
         private bool usingGyroControls = true;
 
         private GameObject selectedCharacter = null;
@@ -66,6 +69,9 @@ namespace EAE.Race.Player
         /// </summary>
         public GameObject GetSelectedCharacter()
         {
+            if (selectedCharacter == null)
+                return DefaultCharacter;
+
             return selectedCharacter;
         }
 
@@ -74,6 +80,9 @@ namespace EAE.Race.Player
         /// </summary>
         public GameObject GetSelectedHoverboard()
         {
+            if (selectedHoverboard == null)
+                return DefaultHoverboard;
+
             return selectedHoverboard;
         }
         #endregion Getters

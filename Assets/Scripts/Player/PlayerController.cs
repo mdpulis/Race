@@ -13,6 +13,9 @@ namespace EAE.Race.Player
         public Transform Models;
         public Transform FlipRotationPoint;
 
+        public Transform HoverboardLocation;
+        public Transform CharacterLocation;
+
         public GameObject RegularBoxCollider;
         public GameObject SlidingBoxCollider;
         public GameObject SlidingBoxColliderTopTest;
@@ -71,23 +74,53 @@ namespace EAE.Race.Player
             racing = true;
             //this.GetComponent<Rigidbody>().centerOfMass = CenterOfMass.position;
             playerRigidbody = this.GetComponent<Rigidbody>();
-            playerAnimator = this.GetComponentInChildren<Animator>();
 
             if(GameObject.FindGameObjectWithTag("LevelStartPosition") != null)
                 levelStartPosition = GameObject.FindGameObjectWithTag("LevelStartPosition").GetComponent<Transform>();
             levelFinishUI = FindHelper.FindObjectOfTypeEvenIfInactive<LevelFinishUI>();
 
-            anim = GetComponentInChildren<AnimationManager>();
-            speedEffect = Camera.main.GetComponentInChildren<TimedEffect>();
-            playerVoice = GetComponent<PlayerVoiceManager>();
-
             //playerRigidbody.centerOfMass = new Vector3(0, 0, 0);
             SlidingBoxCollider.SetActive(false); //turn off just in case it's on
 
+            LookForReferences();
+            SetLocationToDefault();
+        }
+
+        /// <summary>
+        /// Get references after things have loaded
+        /// </summary>
+        public void LookForReferences()
+        {
+            playerAnimator = this.GetComponentInChildren<Animator>();
+
+            anim = GetComponentInChildren<AnimationManager>();
+            speedEffect = Camera.main.GetComponentInChildren<TimedEffect>();
+            playerVoice = GetComponent<PlayerVoiceManager>();
+        }
+
+        /// <summary>
+        /// Sets the location to the level's default
+        /// </summary>
+        public void SetLocationToDefault()
+        {
             this.transform.SetPositionAndRotation(levelStartPosition.position, levelStartPosition.rotation);
         }
 
+        /// <summary>
+        /// Sets the character model for the object
+        /// </summary>
+        public void SetCharacterModel(GameObject newCharacterModel)
+        {
+            Instantiate(newCharacterModel).transform.SetParent(CharacterLocation, false);
+        }
 
+        /// <summary>
+        /// Sets the hoverboard model for the object
+        /// </summary>
+        public void SetHoverboardModel(GameObject newHoverboardModel)
+        {
+            Instantiate(newHoverboardModel).transform.SetParent(HoverboardLocation, false);
+        }
         #endregion Setup
 
 
@@ -229,7 +262,8 @@ namespace EAE.Race.Player
             boosting = true;
 
             //Visual Effects
-            anim.TriggerState(AnimationManager.states.Win);
+            if (anim != null)
+                anim.TriggerState(AnimationManager.states.Win);
             speedEffect.triggerEffect();
             playerVoice.TriggerVoiceEffect(PlayerVoiceManager.Emotion.Excited);
         }
@@ -366,10 +400,9 @@ namespace EAE.Race.Player
         public void ResetRacing()
         {
             levelFinishUI.gameObject.SetActive(false);
-            this.transform.SetPositionAndRotation(levelStartPosition.position, levelStartPosition.rotation);
+            SetLocationToDefault();
             racing = true;
         }
-
         #endregion End Racing
 
         #region Getters
