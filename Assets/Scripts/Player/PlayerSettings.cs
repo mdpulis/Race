@@ -10,10 +10,15 @@ namespace EAE.Race.Player
     /// </summary>
     public class PlayerSettings : MonoBehaviour
     {
+        public GameObject DefaultCharacter;
+        public GameObject DefaultHoverboard;
+
         private bool usingGyroControls = true;
 
         private GameObject selectedCharacter = null;
         private GameObject selectedHoverboard = null;
+
+        private bool initialized = false;
 
         private void Awake()
         {
@@ -24,6 +29,7 @@ namespace EAE.Race.Player
             //Make sure we don't destroy our player settings
             DontDestroyOnLoad(this.gameObject);
 
+            initialized = true;
         }
 
         #region Setters
@@ -66,6 +72,9 @@ namespace EAE.Race.Player
         /// </summary>
         public GameObject GetSelectedCharacter()
         {
+            if (selectedCharacter == null)
+                return DefaultCharacter;
+
             return selectedCharacter;
         }
 
@@ -74,7 +83,18 @@ namespace EAE.Race.Player
         /// </summary>
         public GameObject GetSelectedHoverboard()
         {
+            if (selectedHoverboard == null)
+                return DefaultHoverboard;
+
             return selectedHoverboard;
+        }
+
+        /// <summary>
+        /// Returns if initialized or not
+        /// </summary>
+        public bool IsInitialized()
+        {
+            return initialized;
         }
         #endregion Getters
 

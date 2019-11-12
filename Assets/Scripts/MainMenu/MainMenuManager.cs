@@ -1,6 +1,7 @@
 ﻿using EAE.Race.Player;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,6 +53,7 @@ namespace EAE.Race.MainMenu
 
         //Ads!
         public GameObject AdHolder;
+        private AdVideoPlayer adVideoPlayer;
 
         //Private variables for management
         private MainMenuStates mainMenuState = MainMenuStates.MainMenu;
@@ -79,7 +81,8 @@ namespace EAE.Race.MainMenu
             //selectableHoverboardPOs = new List<SelectableHoverboardPrefabObject>();
 
             mainMenuAnimator = this.GetComponent<Animator>();
-            playerSettings = GameObject.FindObjectOfType<PlayerSettings>();
+            playerSettings = GameObject.FindObjectsOfType<PlayerSettings>().Where(x => x.IsInitialized()).FirstOrDefault();
+            adVideoPlayer = GameObject.FindObjectOfType<AdVideoPlayer>();
 
             OpenMainMenuScreen();
             //mainMenuAnimator.SetBool(MAIN, true); //setup anim at start
@@ -87,6 +90,7 @@ namespace EAE.Race.MainMenu
             InitializeLevels();
             InitializeCharacters();
             InitializeHoverboards();
+            InitializePlayerSettings();
             ShowAd();
         }
 
@@ -185,6 +189,14 @@ namespace EAE.Race.MainMenu
         }
 
         /// <summary>
+        /// Sets the player settings in the main menu
+        /// </summary>
+        private void InitializePlayerSettings()
+        {
+            GyroToggle.isOn = playerSettings.GetGyroControls();
+        }
+
+        /// <summary>
         /// Shows the best ad ;)
         /// </summary>
         private void ShowAd()
@@ -196,6 +208,15 @@ namespace EAE.Race.MainMenu
         {
             yield return new WaitForSeconds(7.0f);
             AdHolder.SetActive(true);
+        }
+
+        /// <summary>
+        /// Shows the video ad
+        /// </summary>
+        public void ShowVideoAd()
+        {
+            if (adVideoPlayer != null)
+                adVideoPlayer.PlayVideo();
         }
 
         /// <summary>
