@@ -3178,6 +3178,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 835893980224940523, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
+        type: 3}
+      propertyPath: m_Name
+      value: UnityChan_Customized
+      objectReference: {fileID: 0}
+    - target: {fileID: 835893980224940523, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 835893980225238475, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3231,16 +3241,6 @@ PrefabInstance:
     - target: {fileID: 835893980225238475, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 835893980224940523, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
-        type: 3}
-      propertyPath: m_Name
-      value: UnityChan_Customized
-      objectReference: {fileID: 0}
-    - target: {fileID: 835893980224940523, guid: 0099ba3b0ecee0547a4a5999a0db8f0a,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4126,11 +4126,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 187883674852786807, guid: fbf2bb0158d9a0043a4367153d699ea9,
-        type: 3}
-      propertyPath: m_Name
-      value: LoadingScreenCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 187883674852786795, guid: fbf2bb0158d9a0043a4367153d699ea9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4236,6 +4231,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 187883674852786807, guid: fbf2bb0158d9a0043a4367153d699ea9,
+        type: 3}
+      propertyPath: m_Name
+      value: LoadingScreenCanvas
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbf2bb0158d9a0043a4367153d699ea9, type: 3}
 --- !u!1 &1678533754
@@ -4315,7 +4315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678533754}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.93, y: 1.45, z: -0.91}
+  m_LocalPosition: {x: 3.93, y: 1.741, z: -1.259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
