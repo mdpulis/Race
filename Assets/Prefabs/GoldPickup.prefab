@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 574637604631187030}
   - component: {fileID: 574637604631187029}
   - component: {fileID: 574637604631187028}
+  - component: {fileID: 8917369100390484408}
   m_Layer: 0
   m_Name: GoldPickup
   m_TagString: Untagged
@@ -107,6 +108,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoneyValue: 1
+--- !u!114 &8917369100390484408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574637604631187019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328c5b214b9cfb7489e1c0079604df3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: {x: 0, y: 200, z: 0}
+  bounceSpeed: 0.5
+  bounceHeight: 0.5
 --- !u!1001 &715522867946636723
 PrefabInstance:
   m_ObjectHideFlags: 0
