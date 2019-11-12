@@ -62,6 +62,7 @@ public class AnimationManager : MonoBehaviour
     }
     public void TriggerState(states newState)
     {
+        anim.SetTrigger("EndAnimation");
         anim.SetTrigger(triggerDict[newState]);
     }
 
