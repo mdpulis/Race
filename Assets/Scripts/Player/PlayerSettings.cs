@@ -18,6 +18,8 @@ namespace EAE.Race.Player
         private GameObject selectedCharacter = null;
         private GameObject selectedHoverboard = null;
 
+        private bool initialized = false;
+
         private void Awake()
         {
             //Make sure we don't have any extra player settings; if we already have one, we need to destroy this one
@@ -27,6 +29,7 @@ namespace EAE.Race.Player
             //Make sure we don't destroy our player settings
             DontDestroyOnLoad(this.gameObject);
 
+            initialized = true;
         }
 
         #region Setters
@@ -84,6 +87,14 @@ namespace EAE.Race.Player
                 return DefaultHoverboard;
 
             return selectedHoverboard;
+        }
+
+        /// <summary>
+        /// Returns if initialized or not
+        /// </summary>
+        public bool IsInitialized()
+        {
+            return initialized;
         }
         #endregion Getters
 

@@ -1,4 +1,5 @@
-﻿using EAE.Race.Player;
+﻿using EAE.Race.InputMethods;
+using EAE.Race.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,18 @@ namespace EAE.Race.Levels
             playerController.SetHoverboardModel(playerSettings.GetSelectedHoverboard());
 
             playerController.LookForReferences();
+
+            //If gryo settings are on
+            if(playerSettings.GetGyroControls())
+            {
+                //do nothing, default is gyro
+            }
+            //If gyro is off
+            else
+            {
+                playerController.GetComponent<PhoneMotionControls>().enabled = false;
+                playerController.GetComponent<TouchInputManager>().SetGyroOnOff(false);
+            }
         }
 
 
