@@ -51,7 +51,7 @@ namespace EAE.Race.Player
                 RespawnPlayer();
             }else if (other.CompareTag("FinishLine"))
             {
-              //  pc.EndRacing();
+               pc.EndRacing();
             }
 
         }

@@ -32,6 +32,9 @@ namespace EAE.Race.InputMethods
         //private Dictionary<Touch, TouchData> activeTouchesDictionary;
         private List<TouchData> activeTouchDatasList;
 
+
+        private const float SWIPE_DISTANCE = 125.0f;
+
         private void Awake()
         {
             playerCamera = GameObject.Find("Main Camera").GetComponent<Camera>(); //TODO fix string lookup
@@ -113,7 +116,6 @@ namespace EAE.Race.InputMethods
 
                         activeTouchDatasList.Add(touchData);
                         //activeTouchesDictionary.Add(currentTouch, touchData);
-
                     }
                     else if(currentTouch.phase == TouchPhase.Ended)
                     {
@@ -127,24 +129,88 @@ namespace EAE.Race.InputMethods
                         Vector2 endPosition = currentTouch.position;
                         Vector2 delta = endPosition - startPosition;
 
+                        Debug.Log("start x: " + startPosition.x + ", start y: " + startPosition.y + ", end x: " + endPosition.x + ", end y: " + endPosition.y);
+
                         float dist = Mathf.Sqrt(Mathf.Pow(delta.x, 2) + Mathf.Pow(delta.y, 2));
                         float angle = Mathf.Atan(delta.y / delta.x) * (180.0f / Mathf.PI);
                         float duration = startingTouchData.TimeAlive;//activeTouchesDictionary[currentTouch].TimeAlive;
                         float speed = dist / duration;
+
+                        float xDiff = endPosition.x - startPosition.x;
+                        float yDiff = endPosition.y - startPosition.y;
+
+                        if (angle < 0)
+                            angle = angle * -1.0f;
+
+                        Debug.Log("xDiff: " + xDiff + ", yDiff: " + yDiff + ", angle: " + angle + ", speed: " + speed);
+
+
+                        if (speed > 100)
+                        {
+                            //Down to up
+                            if (yDiff > SWIPE_DISTANCE)
+                            {
+                                Debug.Log("down to up");
+
+                                if (playerController.CanJump())
+                                    playerController.Jump();
+                                else if (playerController.CanFlip())
+                                    playerController.StartFlip();
+                            }
+                            //Up to down
+                            else if (yDiff < SWIPE_DISTANCE * -1.0f)
+                            {
+                                Debug.Log("up to down");
+
+                                if (playerController.CanSlide())
+                                    playerController.StartSlide();
+                            }
+                        }
                         
+
                         // Left to right swipe
                         if (startPosition.y < endPosition.y)
                         {
-                            if (angle < 0)
-                                angle = angle * -1.0f;
                             //Debug.Log("Distance: " + dist + " Angle: " + angle + " Speed: " + speed);
-                        
-                            if (dist > 300 && angle < 30 && speed > 300) {
-                                // Do something related to the swipe
+                            if (dist > 300 && angle < 30 && speed > 300)
+                            {
+                                
+                                //playerController.Jump();
+                            }
+                        }
+                        //Right to left
+                        else if(startPosition.y > endPosition.y)
+                        {
+                            if (dist > 300 && angle < 30 && speed > 300)
+                            {
+                                //playerController.Jump();
                             }
                         }
 
-                        if(!startingTouchData.RightSide)//!activeTouchesDictionary[currentTouch].RightSide) //left side
+
+                        //// Up to down swipe
+                        //if (startPosition.x < endPosition.x)
+                        //{
+                        //    //Debug.Log("Distance: " + dist + " Angle: " + angle + " Speed: " + speed);
+                        //    if (dist > 300 && angle < 30 && speed > 300)
+                        //    {
+                        //        Debug.Log("up to down");
+                        //        //playerController.Jump();
+                        //    }
+                        //}
+                        ////Right to left
+                        //else if (startPosition.x > endPosition.x)
+                        //{
+                        //    if (dist > 300 && angle < 30 && speed > 300)
+                        //    {
+                        //        Debug.Log("down to up");
+                        //        //playerController.Jump();
+                        //    }
+                        //}
+
+
+
+                        if (!startingTouchData.RightSide)//!activeTouchesDictionary[currentTouch].RightSide) //left side
                         {
                             playerController.setMovingLeft(false);
                         }
