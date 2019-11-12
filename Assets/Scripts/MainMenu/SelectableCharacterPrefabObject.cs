@@ -68,8 +68,6 @@ namespace EAE.Race.MainMenu
         /// </summary>
         public void SelectCharacter()
         {
-            Debug.Log("selecting: " + characterName.ToString());
-
             if (!unlocked)
                 return;
 
@@ -78,8 +76,6 @@ namespace EAE.Race.MainMenu
 
             currentlySelectedCharacter = this;
             this.TurnOnOffSelectedCheckmark(true);
-
-            Debug.Log("Selected " + characterName.ToString());
         }
 
 
