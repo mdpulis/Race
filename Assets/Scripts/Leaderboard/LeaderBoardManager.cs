@@ -8,19 +8,20 @@ namespace EAE.Race.Scoring
 {
     public class LeaderBoardManager : MonoBehaviour
     {
-
         private string path = "Assets/Resources/Leaderboard/score.txt";      
         Dictionary<string,float>scores;
         private string currentLevel;
         
         // Start is called before the first frame update
         void Start()
+        {   
+        }
+        private void Awake()
         {
             DontDestroyOnLoad(this);
-            scores = new Dictionary<string, float>();            
-            ReadScores();            
+            scores = new Dictionary<string, float>();
+            ReadScores();
         }
-
         // Update is called once per frame
         void Update()
         {
@@ -30,14 +31,17 @@ namespace EAE.Race.Scoring
         private void ReadScores()
         {
             try
-            {
-                scores.Clear();
+            {                
                 StreamReader reader = new StreamReader(path);
                 string line;// = reader.ReadLine();
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] splits = line.Split(',');
-                    scores.Add(splits[1], float.Parse(splits[0]));                    
+
+                    float newScore = float.Parse(splits[1]);
+
+                    this.currentLevel = splits[0];
+                    RecordScore(newScore,false);
                 }
                 reader.Close();
             }
@@ -56,7 +60,7 @@ namespace EAE.Race.Scoring
                 StringBuilder sb = new StringBuilder();
                 foreach(KeyValuePair<string,float> pair in scores)
                 {
-                    sb.Append(pair.Key + "," + pair.Value);
+                    sb.Append(pair.Key + "," + pair.Value+"\n");
                 }
                 writer.Write(sb.ToString());
                 writer.Close();
@@ -71,16 +75,25 @@ namespace EAE.Race.Scoring
         {
             currentLevel = levelName;
         }
-        public void RecordScore(float score)
+        public void RecordScore(float score, bool writeToDisk)
         {
             if(scores.ContainsKey(currentLevel))
             {
-                if(scores[currentLevel]<score)
+                if(score<scores[currentLevel])
                 {
-                    scores[currentLevel] = score;
+                    scores.Remove(currentLevel);
+                    scores.Add(currentLevel, score);
                 }
+            }else
+            {
+                scores.Add(currentLevel, score);
+            }            
+
+            if(writeToDisk)
+            {
+                WriteScores();
             }
-            scores.Add(currentLevel,score);
+            
         }
 
         public float getHighScoreForLevel(string levelName)

@@ -15,4 +15,4 @@ MonoBehaviour:
   SceneName: TrevorNew
   LevelNameEN: Mementos
   LevelSprite: {fileID: 21300000, guid: d1718c3315981e84691f644807db5166, type: 3}
-  DefaultBestTime: 37
+  DefaultBestTime: 300
