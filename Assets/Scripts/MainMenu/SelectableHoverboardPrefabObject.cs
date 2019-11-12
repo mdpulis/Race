@@ -68,8 +68,6 @@ namespace EAE.Race.MainMenu
         /// </summary>
         public void SelectHoverboard()
         {
-            Debug.Log("selecting: " + hoverboardName.ToString());
-
             if (!unlocked)
                 return;
 
@@ -78,8 +76,6 @@ namespace EAE.Race.MainMenu
 
             currentlySelectedHoverboard = this;
             this.TurnOnOffSelectedCheckmark(true);
-
-            Debug.Log("Selected " + hoverboardName.ToString());
         }
 
 

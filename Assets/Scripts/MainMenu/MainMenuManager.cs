@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using EAE.Race.Player;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EAE.Race.MainMenu
 {
@@ -16,6 +18,8 @@ namespace EAE.Race.MainMenu
         SelectingCustomize = 20,
         SelectingCharacter = 21,
         SelectingHoverboard = 22,
+
+        Options = 30,
     }
 
 
@@ -43,18 +47,26 @@ namespace EAE.Race.MainMenu
         public List<HoverboardInfo> SelectableHoverboardInfos;
         private GameObject currentlyDisplayingHoverboardModel;
 
+        //Options
+        public Toggle GyroToggle;
+
+        //Ads!
+        public GameObject AdHolder;
+
         //Private variables for management
         private MainMenuStates mainMenuState = MainMenuStates.MainMenu;
 
 
         //Private variables for references
         private Animator mainMenuAnimator;
+        private PlayerSettings playerSettings;
 
         private const string MAIN = "Main";
         private const string SELECTING_LEVEL = "Selecting Level";
         private const string SELECTING_CUSTOMIZATION = "Selecting Customization";
         private const string SELECTING_CHARACTER = "Selecting Character";
         private const string SELECTING_HOVERBOARD = "Selecting Hoverboard";
+        private const string OPTIONS = "Options";
 
         //private List<SelectableLevelPrefabObject> selectableLevelPOs;
         //private List<SelectableCharacterPrefabObject> selectableCharacterPOs;
@@ -67,12 +79,15 @@ namespace EAE.Race.MainMenu
             //selectableHoverboardPOs = new List<SelectableHoverboardPrefabObject>();
 
             mainMenuAnimator = this.GetComponent<Animator>();
+            playerSettings = GameObject.FindObjectOfType<PlayerSettings>();
+
             OpenMainMenuScreen();
             //mainMenuAnimator.SetBool(MAIN, true); //setup anim at start
 
             InitializeLevels();
             InitializeCharacters();
             InitializeHoverboards();
+            ShowAd();
         }
 
         /// <summary>
@@ -114,7 +129,11 @@ namespace EAE.Race.MainMenu
                 scpo.SelectCharacterButton.onClick.AddListener(() =>
                 {
                     if (scpo.IsUnlocked())
+                    {
                         DisplayCharacterModel(co.CharacterModel);
+                        playerSettings.SetSelectedCharacter(co.CharacterModel);
+                    }
+
                 }); //displays the character model on click too
 
 
@@ -148,8 +167,11 @@ namespace EAE.Race.MainMenu
                 shpo.SelectHoverboardButton.onClick.AddListener(() =>
                 {
                     if (shpo.IsUnlocked())
+                    {
                         DisplayHoverboardModel(hi.HoverboardModel);
-                }); //displays the character model on click too
+                        playerSettings.SetSelectedHoverboard(hi.HoverboardModel);
+                    }
+                }); //displays the hoverboard model on click too
 
 
                 //TODO fix, right now this just selects the first hoverboard in the list by default
@@ -160,6 +182,20 @@ namespace EAE.Race.MainMenu
                     //DisplayCharacterModel(co.CharacterModel);
                 }
             }
+        }
+
+        /// <summary>
+        /// Shows the best ad ;)
+        /// </summary>
+        private void ShowAd()
+        {
+            StartCoroutine(ShowAdCR());
+        }
+
+        private IEnumerator ShowAdCR()
+        {
+            yield return new WaitForSeconds(7.0f);
+            AdHolder.SetActive(true);
         }
 
         /// <summary>
@@ -190,6 +226,16 @@ namespace EAE.Race.MainMenu
             currentlyDisplayingHoverboardModel = nhm;
         }
 
+        #region Options
+        /// <summary>
+        /// Changes the gyro controls
+        /// </summary>
+        public void ChangeGyroControls(bool onOff)
+        {
+            playerSettings.SetGyroControls(onOff);
+        }
+
+        #endregion Options
 
         #region Screens
         public void OpenMainMenuScreen()
@@ -227,6 +273,12 @@ namespace EAE.Race.MainMenu
             mainMenuAnimator.SetBool(SELECTING_HOVERBOARD, true);
         }
 
+        public void OpenOptionsScreen()
+        {
+            CloseScreen();
+            mainMenuState = MainMenuStates.Options;
+            mainMenuAnimator.SetBool(OPTIONS, true);
+        }
         /// <summary>
         /// Goes back one screen
         /// </summary>
@@ -250,6 +302,9 @@ namespace EAE.Race.MainMenu
                     break;
                 case (MainMenuStates.SelectingHoverboard):
                     OpenSelectingCustomizationScreen();
+                    break;
+                case (MainMenuStates.Options):
+                    OpenMainMenuScreen();
                     break;
                 default:
                     Debug.LogWarning("Unknown main menu state. Cannot go back.");
@@ -278,6 +333,9 @@ namespace EAE.Race.MainMenu
                     break;
                 case (MainMenuStates.SelectingHoverboard):
                     mainMenuAnimator.SetBool(SELECTING_HOVERBOARD, false);
+                    break;
+                case (MainMenuStates.Options):
+                    mainMenuAnimator.SetBool(OPTIONS, false);
                     break;
                 default:
                     Debug.LogWarning("Unknown main menu state. Cannot close.");
