@@ -1,6 +1,7 @@
 ﻿using EAE.Race.Player;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -79,7 +80,7 @@ namespace EAE.Race.MainMenu
             //selectableHoverboardPOs = new List<SelectableHoverboardPrefabObject>();
 
             mainMenuAnimator = this.GetComponent<Animator>();
-            playerSettings = GameObject.FindObjectOfType<PlayerSettings>();
+            playerSettings = GameObject.FindObjectsOfType<PlayerSettings>().Where(x => x.IsInitialized()).FirstOrDefault();
 
             OpenMainMenuScreen();
             //mainMenuAnimator.SetBool(MAIN, true); //setup anim at start
@@ -87,6 +88,7 @@ namespace EAE.Race.MainMenu
             InitializeLevels();
             InitializeCharacters();
             InitializeHoverboards();
+            InitializePlayerSettings();
             ShowAd();
         }
 
@@ -182,6 +184,14 @@ namespace EAE.Race.MainMenu
                     //DisplayCharacterModel(co.CharacterModel);
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets the player settings in the main menu
+        /// </summary>
+        private void InitializePlayerSettings()
+        {
+            GyroToggle.isOn = playerSettings.GetGyroControls();
         }
 
         /// <summary>

@@ -32,6 +32,7 @@ namespace EAE.Race.InputMethods
         //private Dictionary<Touch, TouchData> activeTouchesDictionary;
         private List<TouchData> activeTouchDatasList;
 
+        private bool usingGyroControls = true;
 
         private const float SWIPE_DISTANCE = 125.0f;
 
@@ -44,52 +45,16 @@ namespace EAE.Race.InputMethods
             screenWidth = Screen.width;
             screenHeight = Screen.height;
 
-            //activeTouchesDictionary = new Dictionary<Touch, TouchData>();
             activeTouchDatasList = new List<TouchData>();
         }
 
 
         private void Update()
         {
-            //if(activeTouchesDictionary.Count > 0)
-            //{
-            //    List<Touch> keysList = new List<Touch>(activeTouchesDictionary.Keys);
-            //
-            //    foreach (Touch key in keysList)
-            //    {
-            //        TouchData td = activeTouchesDictionary[key];
-            //        td.TimeAlive += Time.deltaTime;
-            //        //activeTouchesDictionary[key].TimeAlive += Time.deltaTime;
-            //    }
-            //}
-
             for(int i = 0; i < activeTouchDatasList.Count; i++)
             {
                 activeTouchDatasList[i].TimeAlive += Time.deltaTime;
             }
-
-           //for(int i = 0; i < activeTouchesDictionary.Count; i++)
-           //{
-           //   // activeTouchesDictionary.
-           //}
-           //
-           //foreach(KeyValuePair<Touch, TouchData> entry in activeTouchesDictionary)
-           //{
-           //    entry.Value.TimeAlive += Time.deltaTime;
-           //}
-           //
-           //foreach(TouchData touchData in activeTouchesDictionary.Values)
-           //{
-           //    touchData.TimeAlive += Time.deltaTime;
-           //}
-
-            //var dictionary = new Dictionary<string, double>();
-            //// TODO Populate your dictionary here
-            //var keys = new List<string>(dictionary.Keys);
-            //foreach (string key in keys)
-            //{
-            //    dictionary[key] = Math.Round(dictionary[key], 3);
-            //}
 
             if (Input.touchCount > 0)
             {
@@ -103,15 +68,18 @@ namespace EAE.Race.InputMethods
                         touchData.TimeAlive = 0.0f;
                         touchData.FingerID = currentTouch.fingerId;
 
-                        if (currentTouch.position.x < (screenWidth / 2)) //left side
+                        if(!usingGyroControls)
                         {
-                            playerController.setMovingLeft(true);
-                            touchData.RightSide = false;
-                        }
-                        else //right side
-                        {
-                            playerController.setMovingRight(true);
-                            touchData.RightSide = true;
+                            if (currentTouch.position.x < (screenWidth / 2)) //left side
+                            {
+                                playerController.setMovingLeft(true);
+                                touchData.RightSide = false;
+                            }
+                            else //right side
+                            {
+                                playerController.setMovingRight(true);
+                                touchData.RightSide = true;
+                            }
                         }
 
                         activeTouchDatasList.Add(touchData);
@@ -167,56 +135,16 @@ namespace EAE.Race.InputMethods
                             }
                         }
                         
-
-                        // Left to right swipe
-                        if (startPosition.y < endPosition.y)
+                        if(!usingGyroControls)
                         {
-                            //Debug.Log("Distance: " + dist + " Angle: " + angle + " Speed: " + speed);
-                            if (dist > 300 && angle < 30 && speed > 300)
+                            if (!startingTouchData.RightSide) //left side
                             {
-                                
-                                //playerController.Jump();
+                                playerController.setMovingLeft(false);
                             }
-                        }
-                        //Right to left
-                        else if(startPosition.y > endPosition.y)
-                        {
-                            if (dist > 300 && angle < 30 && speed > 300)
+                            else //right side
                             {
-                                //playerController.Jump();
+                                playerController.setMovingRight(false);
                             }
-                        }
-
-
-                        //// Up to down swipe
-                        //if (startPosition.x < endPosition.x)
-                        //{
-                        //    //Debug.Log("Distance: " + dist + " Angle: " + angle + " Speed: " + speed);
-                        //    if (dist > 300 && angle < 30 && speed > 300)
-                        //    {
-                        //        Debug.Log("up to down");
-                        //        //playerController.Jump();
-                        //    }
-                        //}
-                        ////Right to left
-                        //else if (startPosition.x > endPosition.x)
-                        //{
-                        //    if (dist > 300 && angle < 30 && speed > 300)
-                        //    {
-                        //        Debug.Log("down to up");
-                        //        //playerController.Jump();
-                        //    }
-                        //}
-
-
-
-                        if (!startingTouchData.RightSide)//!activeTouchesDictionary[currentTouch].RightSide) //left side
-                        {
-                            playerController.setMovingLeft(false);
-                        }
-                        else //right side
-                        {
-                            playerController.setMovingRight(false);
                         }
 
                         Debug.Log("removing touch!");
@@ -224,34 +152,16 @@ namespace EAE.Race.InputMethods
                         //activeTouchesDictionary.Remove(currentTouch);
                     }
                 }
-                //if (Input.touchCount > 0  Input.GetTouch(0).phase == TouchPhase.Ended) {
-                //    Vector2 endPosition = Input.GetTouch(0).position;
-                //    Vector2 delta = endPosition - startPosition;
-                //
-                //    float dist = Mathf.Sqrt(Mathf.Pow(delta.x, 2) + Mathf.Pow(delta.y, 2));
-                //    float angle = Mathf.Atan(delta.y / delta.x) * (180.0f / Mathf.PI);
-                //    float duration = Time.time - startTime;
-                //    float speed = dist / duration;
-                //
-                //    // Left to right swipe
-                //    if (startPosition.y < endPosition.y)
-                //    {
-                //        if (angle < 0) angle = angle * 1.0f;
-                //        Debug.Log("Distance: " + dist + " Angle: " + angle + " Speed: " + speed);
-                //
-                //        if (dist > 300  angle < 10  speed > 1000) {
-                //            // Do something related to the swipe
-                //        }
-                //    }
-                //}
-                //
-                //if (Input.touchCount > 0  Input.GetTouch(0).phase == TouchPhase.Began) {
-                //    startPosition = Input.GetTouch(0).position;
-                //    startTime = Time.time;
-                //}
             }
         }
 
+        /// <summary>
+        /// Turns the gyro controls on or off
+        /// </summary>
+        public void SetGyroOnOff(bool onOff)
+        {
+            usingGyroControls = onOff;
+        }
 
     }
 }
