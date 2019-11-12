@@ -27,8 +27,8 @@ namespace UnityChan
 		{
 			Vector3 force = Vector3.zero;
 			if (isWindActive) {
-                float perlinScale = .01f;//.005f;
-				force = new Vector3 (Mathf.PerlinNoise (Time.time, 0.0f) * perlinScale, Mathf.PerlinNoise(Time.time, 0.0f) * perlinScale, Mathf.PerlinNoise(Time.time, 0.0f) * perlinScale);
+                float perlinScale = .04f;//.005f;
+				force = new Vector3 (0, Mathf.PerlinNoise(Time.time, Time.time) * perlinScale, 0);
 			}
 
 			for (int i = 0; i < springBones.Length; i++) {
@@ -38,8 +38,8 @@ namespace UnityChan
 
 		void OnGUI ()
 		{
-			Rect rect1 = new Rect (10, Screen.height - 40, 400, 30);
-			isWindActive = GUI.Toggle (rect1, isWindActive, "Random Wind");
+			//Rect rect1 = new Rect (10, Screen.height - 40, 400, 30);
+			//isWindActive = GUI.Toggle (rect1, isWindActive, "Random Wind");
 		}
 
 	}

@@ -13,10 +13,16 @@ namespace EAE.Race.Player
         public Transform Models;
         public Transform FlipRotationPoint;
 
+        public GameObject RegularBoxCollider;
+        public GameObject SlidingBoxCollider;
+        public GameObject SlidingBoxColliderTopTest;
+
         //public modifiable variables
         public float BoardSpeed = 3.0f;
         public float RotateSpeed = 30.0f;
-        public float BoostMod = 2.0f;      
+        public float BoostMod = 2.0f;
+        public float JumpForce = 7500.0f;
+        public float straightDeadZone;
 
         //private gameplay variables
         private bool racing = false;
@@ -31,17 +37,27 @@ namespace EAE.Race.Player
         private bool flipping = false;
         private float currentFlipTime = 0.0f;
         private const float MAX_FLIP_TIME = 1.0f;
+        private int airFlips = 0;
 
         private float startRotation = 0.0f;
         private float endRotation = 0.0f;
 
+        private bool sliding = false;
+        private float currentSlideTime = 0.0f;
+        private const float MAX_SLIDE_TIME = 1.0f;
+
         private float distToGround=1f;
         private bool isGrounded;
+        private bool beganJump = false;
+
+        //private component references
+        private Rigidbody playerRigidbody;
+        private Animator playerAnimator;
 
         //visual components
-        private AnimationManager anim;
+        public AnimationManager anim;
         private TimedEffect speedEffect;
-        private PlayerVoiceManager playerVoice;
+        public PlayerVoiceManager playerVoice;
        
 
         #region Setup
@@ -49,9 +65,15 @@ namespace EAE.Race.Player
         {
             racing = true;
             //this.GetComponent<Rigidbody>().centerOfMass = CenterOfMass.position;
+            playerRigidbody = this.GetComponent<Rigidbody>();
+            playerAnimator = this.GetComponentInChildren<Animator>();
+
             anim = GetComponentInChildren<AnimationManager>();
             speedEffect = Camera.main.GetComponentInChildren<TimedEffect>();
             playerVoice = GetComponent<PlayerVoiceManager>();
+
+            //playerRigidbody.centerOfMass = new Vector3(0, 0, 0);
+            SlidingBoxCollider.SetActive(false); //turn off just in case it's on
         }
 
 
@@ -60,11 +82,26 @@ namespace EAE.Race.Player
 
         private void Update()
         {
-            CheckGrounded();           
-            if (!flipping && Input.GetKeyDown(KeyCode.W) && !isGrounded)
+            if(isGrounded) //if grounded
             {
-                StartFlip();
+                if (!flipping && !sliding && Input.GetKeyDown(KeyCode.W))
+                {
+                    Jump();
+                }
+                else
+                if (!flipping && !sliding && Input.GetKeyDown(KeyCode.S))
+                {
+                    StartSlide();
+                }
             }
+            else //if in the air
+            {
+                if (!flipping && !sliding && Input.GetKeyDown(KeyCode.W))
+                {
+                    StartFlip();
+                }
+            }
+            
         }
 
         // Fixed Update is called 50 times per second
@@ -72,6 +109,8 @@ namespace EAE.Race.Player
         {
             if (!racing)
                 return;
+
+            CheckGrounded();
 
             if (movingLeft || Input.GetKey(KeyCode.A))
             {
@@ -89,7 +128,6 @@ namespace EAE.Race.Player
             else
                 transform.Translate(Vector3.forward * BoardSpeed * BoostMod * Time.deltaTime);
 
-            //CollisionFlags.Sides
             if(boosting)
             {
                 currentBoostTime += Time.fixedDeltaTime;
@@ -115,12 +153,49 @@ namespace EAE.Race.Player
                 }
             }
 
+            if (sliding)
+            {
+                currentSlideTime += Time.fixedDeltaTime;
+                if (currentSlideTime > MAX_SLIDE_TIME)
+                {
+                    EndSlide();
+                }
+            }
+
         }
+
+
+        #region Movement
+        public void setMovingLeft(bool state)
+        {
+            this.movingLeft = state;
+        }
+
+        public void setMovingRight(bool state)
+        {
+            this.movingRight = state;
+        }
+        #endregion
 
         #region Grounded
         public void CheckGrounded()
         {           
-            isGrounded = Physics.Raycast(transform.position +  new Vector3(0,distToGround,0), -Vector3.up, distToGround + 0.1f);
+            isGrounded = Physics.Raycast(transform.position +  new Vector3(0,distToGround,0), -Vector3.up, distToGround + 0.5f);
+
+            if(!beganJump && !isGrounded)
+            {
+                beganJump = true;
+                airFlips = 0;
+            }
+            else if(beganJump && isGrounded)
+            {
+                beganJump = false;
+                if (airFlips > 0)
+                    StartBoost();
+
+                airFlips = 0;
+                //playerAnimator.SetBool("Jump", false);
+            }
         }
 
         public bool IsGrounded()
@@ -155,6 +230,55 @@ namespace EAE.Race.Player
         }
         #endregion Boost
 
+        #region Jump
+        /// <summary>
+        /// Pushes the player upwards
+        /// </summary>
+        public void Jump()
+        {
+            playerRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+
+            //airFlips = 0;
+
+            if (playerAnimator != null)
+                playerAnimator.SetTrigger("JumpT");
+            else
+                Debug.Log("No player animator found");
+        }
+
+        #endregion Jump
+
+        #region Slide
+        /// <summary>
+        /// Starts the slide
+        /// </summary>
+        public void StartSlide()
+        {
+            RegularBoxCollider.SetActive(false);
+            SlidingBoxCollider.SetActive(true);
+
+            currentSlideTime = 0.0f;
+            sliding = true;
+
+            if (playerAnimator != null)
+                playerAnimator.SetTrigger("Slide");
+            else
+                Debug.Log("No player animator found");
+        }
+
+        /// <summary>
+        /// Ends the slide
+        /// </summary>
+        public void EndSlide()
+        {
+            RegularBoxCollider.SetActive(true);
+            SlidingBoxCollider.SetActive(false);
+
+            currentSlideTime = 0.0f;
+            sliding = false;
+        }
+        #endregion Slide
+
         #region Flip
         /// <summary>
         /// Starts the flip for the player
@@ -175,6 +299,8 @@ namespace EAE.Race.Player
         {
             currentFlipTime = 0.0f;
             flipping = false;
+
+            airFlips++;
         }
         #endregion Flip
 

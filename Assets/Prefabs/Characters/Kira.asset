@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8d4a9aeef2d504c834a5df81a81b55, type: 3}
+  m_Name: Kira
+  m_EditorClassIdentifier: 
+  CharacterNameEN: Kira
+  CharacterSprite: {fileID: 21300000, guid: 87b4adf86e598a1409abed54f3471a8f, type: 3}
+  CharacterModel: {fileID: 4734909675165536869, guid: 6506bab8735fed74abdf5a5973ff7f3c,
+    type: 3}
+  LockedByDefault: 0
+  ElonCoinCost: 100
+  DollarCost: 0.99
