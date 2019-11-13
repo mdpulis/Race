@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62d7ec317b1f3744992b691a6480a18, type: 3}
   m_Name: Mementos2
   m_EditorClassIdentifier: 
-  SceneName: TrevorNew
+  SceneName: TrevorNewNew
   LevelNameEN: Mementos2
   LevelSprite: {fileID: 21300000, guid: d1718c3315981e84691f644807db5166, type: 3}
   DefaultBestTime: 712
