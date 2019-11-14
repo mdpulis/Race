@@ -130,12 +130,18 @@ namespace EAE.Race.MainMenu
                 scpo.Initialize(co.GetLocalizedCharacterName(), co.CharacterSprite, co.LockedByDefault, co.ElonCoinCost, co.DollarCost, co.CharacterModel);
                 scpo.transform.SetParent(CharacterList, false);
 
+                Debug.Log("Initialized SCI!");
+
                 scpo.SelectCharacterButton.onClick.AddListener(() =>
                 {
                     if (scpo.IsUnlocked())
                     {
                         DisplayCharacterModel(co.CharacterModel);
-                        playerSettings.SetSelectedCharacter(co.CharacterModel);
+                        if (playerSettings != null)
+                            playerSettings.SetSelectedCharacter(co.CharacterModel);
+                        else
+                            Debug.Log("No player settings.");
+                        Debug.Log("Set selected char model");
                     }
 
                 }); //displays the character model on click too
@@ -144,7 +150,9 @@ namespace EAE.Race.MainMenu
                 //TODO fix, right now this just selects the first character in the list by default
                 if (currentlyDisplayingCharacterModel == null)
                 {
+                    Debug.Log("About to invoke");
                     scpo.SelectCharacterButton.onClick.Invoke();
+                    Debug.Log("After invoke");
                     //scpo.TurnOnOffSelectedCheckmark(true);
                     //DisplayCharacterModel(co.CharacterModel);
                 }

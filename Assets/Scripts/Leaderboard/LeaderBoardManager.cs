@@ -18,9 +18,11 @@ namespace EAE.Race.Scoring
         }
         private void Awake()
         {
+#if !UNITY_ANDROID
             DontDestroyOnLoad(this);
             scores = new Dictionary<string, float>();
             ReadScores();
+#endif
         }
         // Update is called once per frame
         void Update()

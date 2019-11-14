@@ -12,6 +12,8 @@ namespace EAE.Race.Interactables
     {
         public int MoneyValue = 1;
 
+        public AudioSource PickupAudioSource;
+
         private bool canPickup = true;
         ParticleSystem effects;
         private void Awake()
@@ -29,6 +31,7 @@ namespace EAE.Race.Interactables
 
                 other.GetComponent<PlayerData>().AddMoney(MoneyValue);
                 effects.Play();
+                PickupAudioSource.Play();
                 StartCoroutine(WaitToDestroy());
             }
         }

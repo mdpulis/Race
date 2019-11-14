@@ -407,6 +407,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 84ee1f63e62794ce592a506085b8dd87, type: 3}
   - {fileID: 8300000, guid: 1fea949ca16274adb8e4a6a9b673d938, type: 3}
   - {fileID: 8300000, guid: d0e506a921cc445d6bac45b0420624a5, type: 3}
+  boostSounds:
+  - {fileID: 8300000, guid: 7936191901e5b25409449a56eea0d1a2, type: 3}
+  pickupSounds:
+  - {fileID: 8300000, guid: 33ce220e51bb1b643baa1f7fe832ee53, type: 3}
+  jumpSounds:
+  - {fileID: 8300000, guid: 3738ee0dc602e5c4d86dadfd0b55bde6, type: 3}
+  slideSounds:
+  - {fileID: 8300000, guid: 11fe3062f3d0fca499b5015288a51dfe, type: 3}
 --- !u!114 &1731148088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,11 +1134,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6061063191051064306, guid: ac8ad540da9957745a76bc801ffe15a0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6061063190339485693, guid: ac8ad540da9957745a76bc801ffe15a0,
         type: 3}
       propertyPath: m_Layer
@@ -1209,6 +1212,11 @@ PrefabInstance:
     - target: {fileID: 379695327, guid: ac8ad540da9957745a76bc801ffe15a0, type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6061063191051064306, guid: ac8ad540da9957745a76bc801ffe15a0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac8ad540da9957745a76bc801ffe15a0, type: 3}
