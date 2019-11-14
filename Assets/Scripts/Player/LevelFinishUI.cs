@@ -13,14 +13,18 @@ namespace EAE.Race.Player
     {
         private LoadingScreenManager loadingScreenManager;
         private PlayerData playerData;
+#if !UNITY_ANDROID
         private LeaderBoardManager leaderBoard;
+#endif
 
         private AdVideoPlayer adVideoPlayer;
 
         private void Awake()
         {
             loadingScreenManager = GameObject.FindObjectOfType<LoadingScreenManager>();
-            leaderBoard = GameObject.FindObjectOfType<LeaderBoardManager>();          
+#if !UNITY_ANDROID
+            leaderBoard = GameObject.FindObjectOfType<LeaderBoardManager>();     
+#endif
             playerData = GameObject.FindObjectOfType<PlayerData>();
 
             adVideoPlayer = GameObject.FindObjectOfType<AdVideoPlayer>();
@@ -30,7 +34,9 @@ namespace EAE.Race.Player
 
         private void handleScore()
         {
+#if !UNITY_ANDROID
             leaderBoard.RecordScore(playerData.GetTimePlayed(), true);
+#endif
         }
 
         /// <summary>

@@ -23,7 +23,9 @@ namespace EAE.Race.MainMenu
 
         private LoadingScreenManager loadingScreenManager;
 
+#if !UNITY_ANDROID
         private LeaderBoardManager leaderBoard;
+#endif
 
         private void Awake()
         {
@@ -32,10 +34,12 @@ namespace EAE.Race.MainMenu
             else
                 Debug.LogWarning("WARNING: No loading screen manager found! Can't change scenes.");
 
+#if !UNITY_ANDROID
             if (GameObject.FindObjectOfType<LeaderBoardManager>() != null)
                 leaderBoard = GameObject.FindObjectOfType<LeaderBoardManager>();
             else
                 Debug.LogWarning("WARNING: No Leaderboard manager found! Can't populate scores.");
+#endif
         }
 
         /// <summary>
@@ -45,6 +49,7 @@ namespace EAE.Race.MainMenu
         {
             LevelNameText.text = localizedLevelName;
 
+#if !UNITY_ANDROID
             leaderBoard.setCurrentLevelID(localizedLevelName);
             leaderBoard.RecordScore(bestTime,true );
             if (leaderBoard.getHighScoreForLevel(localizedLevelName) < bestTime)
@@ -55,7 +60,10 @@ namespace EAE.Race.MainMenu
             {
                 BestTimeText.text = "Record: " + Util.SecondsToMinutesSeconds(bestTime); //TODO fix
             }
-           
+#else
+            BestTimeText.text = "Record: " + Util.SecondsToMinutesSeconds(bestTime); //TODO fix
+#endif
+
 
 
             LevelImage.sprite = levelSprite;
@@ -71,7 +79,9 @@ namespace EAE.Race.MainMenu
         {
             if (loadingScreenManager != null)
             {
+#if !UNITY_ANDROID
                 leaderBoard.setCurrentLevelID(LevelNameText.text);
+#endif
                 loadingScreenManager.LoadLevel(internalSceneName);
             }              
             else
