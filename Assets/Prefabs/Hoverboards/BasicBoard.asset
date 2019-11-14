@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverboardNameEN: Basic Board
   HoverboardSprite: {fileID: 21300000, guid: fa27a7fd21c54a344aebe22c7c644a62, type: 3}
-  HoverboardModel: {fileID: 8669068589116432759, guid: ee60946653c5e4f9c9b5398e7fe01c35,
+  HoverboardModel: {fileID: 807043855295383635, guid: ccda68295c8118146baf2ece373c0f81,
     type: 3}
   LockedByDefault: 0
   ElonCoinCost: 0
