@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: BlackHoleShader
   m_Shader: {fileID: -6465566751694194690, guid: 3178690cbd1456b409867638e2bbed89,
     type: 3}
   m_ShaderKeywords: 
@@ -57,15 +57,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_30ED97D4_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 1b11fbd81e6b97344a085e2e5f192075, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_21135A45: 1.43
-    - Vector1_BD355804: -5.83
-    - Vector1_F099260F: -0.48
-    - Vector1_FC4A98F1: 0.47
+    - Vector1_21135A45: 7.57
+    - Vector1_BD355804: 7
+    - Vector1_D7978653: 27.82
+    - Vector1_F099260F: -0.92
+    - Vector1_FC4A98F1: 1.48
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
