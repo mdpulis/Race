@@ -13,6 +13,11 @@ namespace EAE.Race.Interactables
         public int MoneyValue = 1;
 
         private bool canPickup = true;
+        ParticleSystem effects;
+        private void Awake()
+        {
+            effects = GetComponentInChildren<ParticleSystem>();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -23,6 +28,7 @@ namespace EAE.Race.Interactables
                 canPickup = false;
 
                 other.GetComponent<PlayerData>().AddMoney(MoneyValue);
+                effects.Play();
                 StartCoroutine(WaitToDestroy());
             }
         }
@@ -32,7 +38,7 @@ namespace EAE.Race.Interactables
         /// </summary>
         private IEnumerator WaitToDestroy()
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(.5f);
             Destroy(this.gameObject);
         }
 
