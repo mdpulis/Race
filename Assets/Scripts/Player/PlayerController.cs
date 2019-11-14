@@ -266,6 +266,7 @@ namespace EAE.Race.Player
                 anim.TriggerState(AnimationManager.states.Win);
             speedEffect.triggerEffect();
             playerVoice.TriggerVoiceEffect(PlayerVoiceManager.Emotion.Excited);
+            playerVoice.TriggerVoiceEffect(PlayerVoiceManager.Emotion.Boost);
         }
 
         /// <summary>
@@ -292,6 +293,8 @@ namespace EAE.Race.Player
                 playerAnimator.SetTrigger("JumpT");
             else
                 Debug.Log("No player animator found");
+
+            playerVoice.TriggerVoiceEffect(PlayerVoiceManager.Emotion.Jump);
         }
 
         /// <summary>
@@ -322,6 +325,8 @@ namespace EAE.Race.Player
                 playerAnimator.SetTrigger("Slide");
             else
                 Debug.Log("No player animator found");
+
+            playerVoice.TriggerVoiceEffect(PlayerVoiceManager.Emotion.Slide);
         }
 
         /// <summary>
