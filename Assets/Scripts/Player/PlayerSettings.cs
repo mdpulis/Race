@@ -13,7 +13,7 @@ namespace EAE.Race.Player
         public GameObject DefaultCharacter;
         public GameObject DefaultHoverboard;
 
-        private bool usingGyroControls = true;
+        private bool usingGyroControls = false;
 
         private GameObject selectedCharacter = null;
         private GameObject selectedHoverboard = null;
