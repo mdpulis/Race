@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrevorNewNew.unity
     guid: e21e9895245624f01af8dc06c33ba112
+  - enabled: 1
+    path: Assets/Scenes/TrevorNew.unity
+    guid: 9cd95e625d00b401fa5ef14b213002cc
   m_configObjects: {}
