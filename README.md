@@ -1,1 +1,1 @@
-Race
+Death N Derby is a high speed game where player design and race their own custom cards. 
