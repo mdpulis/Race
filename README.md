@@ -1,1 +1,1 @@
-Death N Derby is a high speed game where player design and race their own custom cards. 
+Hover Ops is a mind bending time trial racer inspired by Op Art.
